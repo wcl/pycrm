@@ -15,8 +15,8 @@ def newcustomer():
     inputdata = frappe.local.request.stream.readlines()
     name = ""
     if inputdata:
-    	data = json.loads(inputdata[0])
-    	name = data["name"]
+        data = json.loads(inputdata[0])
+        name = data["name"]
     if frappe.db.exists("customer", name):
         return "already exists recode with name is " + name
     data.update({"doctype": "customer"})
@@ -30,6 +30,7 @@ def newcustomer():
 @frappe.whitelist()
 def cancel():
     pass
+
 
 @frappe.whitelist()
 def uploadfile():
@@ -47,6 +48,10 @@ def uploadfile():
     except Exception:
         frappe.errprint(frappe.utils.get_traceback())
         ret = None
-    doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
-    frappe.db.set(doc,"cus_image",ret["file_url"])
+    docname = frappe.form_dict.get('docname')
+    value = ret['file_url']
+    frappe.log(docname + "," + value)
+    frappe.set_value("customer", docname, "cus_image", value)
+    # doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
+    # frappe.db.set(doc,"cus_image",ret["file_url"])
     return ret
