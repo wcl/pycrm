@@ -9,6 +9,13 @@
  "document_type": "", 
  "fields": [
   {
+   "fieldname": "cus_sectionbreak0", 
+   "fieldtype": "Section Break", 
+   "label": "\u57fa\u672c\u4fe1\u606f", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
    "allow_on_submit": 0, 
    "fieldname": "cus_code", 
    "fieldtype": "Data", 
@@ -25,7 +32,8 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
-   "set_only_once": 1
+   "set_only_once": 1, 
+   "width": "50"
   }, 
   {
    "allow_on_submit": 0, 
@@ -75,6 +83,105 @@
    "precision": ""
   }, 
   {
+   "fieldname": "cus_columnbreak0", 
+   "fieldtype": "Column Break", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_image", 
+   "fieldtype": "Image", 
+   "label": "\u56fe\u50cf", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_sectionbreak1", 
+   "fieldtype": "Section Break", 
+   "label": "\u8054\u7cfb\u65b9\u5f0f", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_contact", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u8054\u7cfb\u4eba", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_telephone", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u8054\u7cfb\u7535\u8bdd", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_email", 
+   "fieldtype": "Data", 
+   "label": "\u7535\u5b50\u4fe1\u7bb1", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_zipcode", 
+   "fieldtype": "Data", 
+   "in_list_view": 0, 
+   "label": "\u90ae\u7f16", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_weixin", 
+   "fieldtype": "Data", 
+   "label": "\u5fae\u4fe1\u53f7", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_columnbreak1", 
+   "fieldtype": "Column Break", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_country", 
+   "fieldtype": "Data", 
+   "label": "\u56fd\u5bb6", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_province", 
+   "fieldtype": "Data", 
+   "label": "\u7701\uff08\u76f4\u8f96\u5e02\uff09", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_city", 
+   "fieldtype": "Data", 
+   "label": "\u57ce\u5e02", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_address", 
+   "fieldtype": "Data", 
+   "label": "\u8be6\u7ec6\u5730\u5740", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_sectionbreak2", 
+   "fieldtype": "Section Break", 
+   "label": "\u5176\u4ed6", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
    "fieldname": "cus_property", 
    "fieldtype": "Select", 
    "label": "\u516c\u53f8\u5c5e\u6027", 
@@ -97,32 +204,8 @@
    "precision": ""
   }, 
   {
-   "fieldname": "cus_contact", 
-   "fieldtype": "Data", 
-   "in_list_view": 1, 
-   "label": "\u8054\u7cfb\u4eba", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
-   "fieldname": "cus_telephone", 
-   "fieldtype": "Data", 
-   "in_list_view": 1, 
-   "label": "\u8054\u7cfb\u7535\u8bdd", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
-   "fieldname": "cus_weixin", 
-   "fieldtype": "Data", 
-   "label": "\u5fae\u4fe1\u53f7", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
-   "fieldname": "cus_email", 
-   "fieldtype": "Data", 
-   "label": "\u7535\u5b50\u4fe1\u7bb1", 
+   "fieldname": "cus_columnbreak3", 
+   "fieldtype": "Column Break", 
    "permlevel": 0, 
    "precision": ""
   }, 
@@ -131,21 +214,6 @@
    "fieldtype": "Data", 
    "in_list_view": 1, 
    "label": "\u8d1f\u8d23\u5458\u5de5", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
-   "fieldname": "cus_zipcode", 
-   "fieldtype": "Data", 
-   "in_list_view": 0, 
-   "label": "\u90ae\u7f16", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
-   "fieldname": "cus_address", 
-   "fieldtype": "Data", 
-   "label": "\u6240\u5728\u5730\u5740", 
    "permlevel": 0, 
    "precision": ""
   }, 
@@ -171,7 +239,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-01 11:37:24.033932", 
+ "modified": "2015-04-01 12:56:48.622081", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "customer", 
