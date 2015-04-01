@@ -10,6 +10,25 @@
  "fields": [
   {
    "allow_on_submit": 0, 
+   "fieldname": "cus_code", 
+   "fieldtype": "Data", 
+   "hidden": 0, 
+   "ignore_user_permissions": 0, 
+   "in_filter": 0, 
+   "in_list_view": 1, 
+   "label": "\u5ba2\u6237\u53f7", 
+   "no_copy": 0, 
+   "permlevel": 0, 
+   "precision": "", 
+   "print_hide": 0, 
+   "read_only": 0, 
+   "report_hide": 0, 
+   "reqd": 0, 
+   "search_index": 0, 
+   "set_only_once": 1
+  }, 
+  {
+   "allow_on_submit": 0, 
    "fieldname": "cus_name", 
    "fieldtype": "Data", 
    "hidden": 0, 
@@ -28,39 +47,119 @@
    "set_only_once": 0
   }, 
   {
-   "allow_on_submit": 0, 
-   "fieldname": "cus_code", 
-   "fieldtype": "Data", 
-   "hidden": 0, 
-   "ignore_user_permissions": 0, 
-   "in_filter": 0, 
-   "in_list_view": 1, 
-   "label": "\u5ba2\u6237\u53f7", 
-   "no_copy": 0, 
-   "permlevel": 0, 
-   "precision": "", 
-   "print_hide": 0, 
-   "read_only": 0, 
-   "report_hide": 0, 
-   "reqd": 0, 
-   "search_index": 0, 
-   "set_only_once": 0
-  }, 
-  {
-   "fieldname": "gender", 
+   "fieldname": "cus_sex", 
    "fieldtype": "Select", 
    "in_filter": 1, 
    "in_list_view": 1, 
    "label": "\u6027\u522b", 
-   "options": "\u7537\n\u5973\n\u672a\u77e5", 
+   "options": "\u7537\n\u5973", 
    "permlevel": 0, 
    "precision": ""
   }, 
   {
-   "fieldname": "name", 
+   "fieldname": "cus_type", 
+   "fieldtype": "Select", 
+   "hidden": 0, 
+   "label": "\u5ba2\u6237\u7c7b\u578b", 
+   "options": "\u4e2a\u4eba\n\u7ecf\u9500\u5546\n\u96c6\u6210\u5546", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_level", 
+   "fieldtype": "Select", 
+   "in_list_view": 1, 
+   "label": "\u5ba2\u6237\u7b49\u7ea7", 
+   "options": "\u6f5c\u5728\u5ba2\u6237\n\u4e00\u822c\u5ba2\u6237\n\u91cd\u70b9\u5ba2\u6237", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_property", 
+   "fieldtype": "Select", 
+   "label": "\u516c\u53f8\u5c5e\u6027", 
+   "options": "\u56fd\u6709\u4f01\u4e1a\n\u96c6\u4f53\u4f01\u4e1a\n\u8054\u8425\u4f01\u4e1a \n\u80a1\u4efd\u5408\u4f5c\u5236\u4f01\u4e1a\n\u79c1\u8425\u4f01\u4e1a   \n\u4e2a\u4f53\u6237\n\u5408\u4f19\u4f01\u4e1a\n\u6709\u9650\u8d23\u4efb\u516c\u53f8\n\u80a1\u4efd\u6709\u9650\u516c\u53f8", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_trade", 
    "fieldtype": "Data", 
-   "hidden": 1, 
-   "label": "name", 
+   "label": "\u6240\u5c5e\u884c\u4e1a", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_website", 
+   "fieldtype": "Data", 
+   "label": "\u7f51\u7ad9\u5730\u5740", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_contact", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u8054\u7cfb\u4eba", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_telephone", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u8054\u7cfb\u7535\u8bdd", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_weixin", 
+   "fieldtype": "Data", 
+   "label": "\u5fae\u4fe1\u53f7", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_email", 
+   "fieldtype": "Data", 
+   "label": "\u7535\u5b50\u4fe1\u7bb1", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_head", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u8d1f\u8d23\u5458\u5de5", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_zipcode", 
+   "fieldtype": "Data", 
+   "in_list_view": 0, 
+   "label": "\u90ae\u7f16", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_address", 
+   "fieldtype": "Data", 
+   "label": "\u6240\u5728\u5730\u5740", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_createdon", 
+   "fieldtype": "Datetime", 
+   "label": "\u521b\u5efa\u65f6\u95f4", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_remark", 
+   "fieldtype": "Data", 
+   "label": "\u5907\u6ce8", 
    "permlevel": 0, 
    "precision": ""
   }
@@ -72,7 +171,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-03-30 08:28:05.234395", 
+ "modified": "2015-04-01 11:37:24.033932", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "customer", 
