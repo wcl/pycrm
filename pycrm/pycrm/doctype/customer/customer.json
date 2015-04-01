@@ -230,13 +230,6 @@
    "label": "\u5907\u6ce8", 
    "permlevel": 0, 
    "precision": ""
-  }, 
-  {
-   "fieldname": "1", 
-   "fieldtype": "Attach Image", 
-   "label": "1", 
-   "permlevel": 0, 
-   "precision": ""
   }
  ], 
  "hide_heading": 0, 
@@ -246,7 +239,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-01 14:23:22.094081", 
+ "modified": "2015-04-01 14:24:53.233186", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "customer", 
