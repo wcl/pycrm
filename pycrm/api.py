@@ -47,5 +47,6 @@ def uploadfile():
     except Exception:
         frappe.errprint(frappe.utils.get_traceback())
         ret = None
-    frappe.db.set("customer","cus_image",ret["file_url"])
+    doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
+    frappe.db.set(doc,"cus_image",ret["file_url"])
     return ret
