@@ -96,6 +96,13 @@
    "precision": ""
   }, 
   {
+   "fieldname": "cus_attention", 
+   "fieldtype": "Check", 
+   "label": "\u5df2\u5173\u6ce8", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
    "fieldname": "cus_sectionbreak1", 
    "fieldtype": "Section Break", 
    "label": "\u8054\u7cfb\u65b9\u5f0f", 
@@ -239,7 +246,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-01 14:24:53.233186", 
+ "modified": "2015-04-01 15:13:15.117550", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "customer", 
