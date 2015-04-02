@@ -4,6 +4,7 @@ import json
 
 logger = frappe.get_logger()
 
+
 @frappe.whitelist()
 def query():
     # u = frappe.db.sql("select * from tabcustomer", as_dict=True)[0]
@@ -15,23 +16,35 @@ def query():
 @frappe.whitelist()
 def newcustomer():
     inputdata = frappe.local.request.stream.readlines()
-    name = ""
     if inputdata:
         data = json.loads(inputdata[0])
         name = data["name"]
-    if frappe.db.exists("customer", name):
-        return "already exists recode with name is " + name
-    data.update({"doctype": "customer"})
+        data['cus_attention'] = 1
 
-    frappe.local.response.update(
-        {"data": frappe.get_doc(data).insert().as_dict()})
+    if frappe.db.exists("customer", name):
+        # return "already exists recode with name is " + name
+        doc = frappe.get_doc("customer", name)
+        doc.update(data)
+        frappe.local.response.update({
+            "data": doc.save().as_dict()
+        })
+    else:
+        data.update({"doctype": "customer"})
+
+        frappe.local.response.update(
+            {"data": frappe.get_doc(data).insert().as_dict()})
 
     frappe.db.commit()
 
 
 @frappe.whitelist()
-def cancel():
-    pass
+def cancelatt():
+    print frappe.form_dict
+    docname = frappe.form_dict.get('docname')
+
+    frappe.set_value("customer", docname, 'cus_attention', 0)
+    frappe.db.commit()
+    return "ok"
 
 
 @frappe.whitelist()
@@ -52,7 +65,7 @@ def uploadfile():
         ret = None
     docname = frappe.form_dict.get('docname')
     value = ret['file_url']
-    logger.debug(docname + "," + value)
+    #logger.debug(docname + "," + value)
     frappe.set_value("customer", docname, "cus_image", value)
     frappe.db.commit()
     # doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
