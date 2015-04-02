@@ -2,6 +2,8 @@ import frappe
 import json
 
 
+logger = frappe.get_logger()
+
 @frappe.whitelist()
 def query():
     # u = frappe.db.sql("select * from tabcustomer", as_dict=True)[0]
@@ -50,8 +52,9 @@ def uploadfile():
         ret = None
     docname = frappe.form_dict.get('docname')
     value = ret['file_url']
-    frappe.log(docname + "," + value)
+    logger.debug(docname + "," + value)
     frappe.set_value("customer", docname, "cus_image", value)
+    frappe.db.commit()
     # doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
     # frappe.db.set(doc,"cus_image",ret["file_url"])
     return ret
