@@ -15,6 +15,7 @@ def query():
 
 @frappe.whitelist()
 def newcustomer():
+    insert = true
     inputdata = frappe.local.request.stream.readlines()
     if inputdata:
         data = json.loads(inputdata[0])
@@ -26,13 +27,16 @@ def newcustomer():
         doc = frappe.get_doc("customer", name)
         doc.update(data)
         frappe.local.response.update({
-            "data": doc.save().as_dict()
+            "data": doc.save().as_dict(),
+            "status": "update"
         })
     else:
         data.update({"doctype": "customer"})
 
-        frappe.local.response.update(
-            {"data": frappe.get_doc(data).insert().as_dict()})
+        frappe.local.response.update({
+            "data": frappe.get_doc(data).insert().as_dict(),
+            "status": "insert"
+        })
 
     frappe.db.commit()
 
