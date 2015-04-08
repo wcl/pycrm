@@ -15,7 +15,6 @@ def query():
 
 @frappe.whitelist()
 def newcustomer():
-    insert = true
     inputdata = frappe.local.request.stream.readlines()
     if inputdata:
         data = json.loads(inputdata[0])
