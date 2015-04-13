@@ -74,3 +74,5 @@ def uploadfile():
     # doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
     # frappe.db.set(doc,"cus_image",ret["file_url"])
     return ret
+
+
