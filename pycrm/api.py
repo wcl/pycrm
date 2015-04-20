@@ -1,3 +1,4 @@
+# -*- coding: cp936 -*-
 import frappe
 import json
 
@@ -21,16 +22,16 @@ def newcustomer():
         name = data["name"]
         data['cus_attention'] = 1
 	employeeCode=data["cus_head"] #get employee code
-	if employeeCode=="Empty":
-	    data["cus_head"]=""
-	elif frappe.db.exists("employee", employeeCode):	
-    	      headInfo = frappe.get_doc("employee", employeeCode)
+	if employeeCode=="":
+	    data["cus_remark"]="非扫码进入"
+	elif frappe.db.exists("Employee", employeeCode):	
+    	      headInfo = frappe.get_doc("Employee", employeeCode)
               data["cus_head"]=headInfo["em_Name"]
         else:
-	    pass;
+	    data["cus_remark"]="扫码进入，但后台未找到编码为{0}的用户".format(data["cus_head"])
     if frappe.db.exists("customer", name):
         # return "already exists recode with name is " + name
-        doc = frappe.get_doc("customer", name)
+        doc = frappe.get_doc("Customer", name)
         doc.update(data)
         frappe.local.response.update({
             "data": doc.save().as_dict(),
@@ -51,7 +52,7 @@ def cancelatt():
     print frappe.form_dict
     docname = frappe.form_dict.get('docname')
 
-    frappe.set_value("customer", docname, 'cus_attention', 0)
+    frappe.set_value("Customer", docname, 'cus_attention', 0)
     frappe.db.commit()
     return "ok"
 
@@ -75,7 +76,7 @@ def uploadfile():
     docname = frappe.form_dict.get('docname')
     value = ret['file_url']
     #logger.debug(docname + "," + value)
-    frappe.set_value("customer", docname, "cus_image", value)
+    frappe.set_value("Customer", docname, "cus_image", value)
     frappe.db.commit()
     # doc = frappe.get_doc("customer", frappe.form_dict.get('docname'))
     # frappe.db.set(doc,"cus_image",ret["file_url"])

@@ -269,7 +269,7 @@
  "modified": "2015-04-20 11:41:20.657222", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
- "name": "customer", 
+ "name": "Customer", 
  "name_case": "", 
  "owner": "Administrator", 
  "permissions": [
