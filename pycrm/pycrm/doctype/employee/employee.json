@@ -55,20 +55,6 @@
    "set_only_once": 0
   }, 
   {
-   "fieldname": "em_ColumnBreak0", 
-   "fieldtype": "Column Break", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
-   "fieldname": "em_Email", 
-   "fieldtype": "Data", 
-   "in_list_view": 1, 
-   "label": "\u7535\u5b50\u90ae\u7bb1", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
    "fieldname": "em_Mobile", 
    "fieldtype": "Data", 
    "in_list_view": 1, 
@@ -77,16 +63,16 @@
    "precision": ""
   }, 
   {
-   "fieldname": "em_ColumnBreak1", 
-   "fieldtype": "Column Break", 
+   "fieldname": "em_Telephone", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u56fa\u5b9a\u7535\u8bdd", 
    "permlevel": 0, 
    "precision": ""
   }, 
   {
-   "fieldname": "em_Telephone", 
-   "fieldtype": "Data", 
-   "in_list_view": 1, 
-   "label": "\u7535\u8bdd", 
+   "fieldname": "em_ColumnBreak0", 
+   "fieldtype": "Column Break", 
    "permlevel": 0, 
    "precision": ""
   }, 
@@ -98,6 +84,14 @@
    "options": "\u9500\u552e\n\u5ba2\u670d", 
    "permlevel": 0, 
    "precision": ""
+  }, 
+  {
+   "fieldname": "em_Email", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u7535\u5b50\u90ae\u7bb1", 
+   "permlevel": 0, 
+   "precision": ""
   }
  ], 
  "hide_heading": 0, 
@@ -107,7 +101,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-20 11:42:51.460888", 
+ "modified": "2015-04-20 13:31:01.721705", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "Employee", 
