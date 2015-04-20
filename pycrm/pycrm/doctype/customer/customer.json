@@ -32,7 +32,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
-   "set_only_once": 1, 
+   "set_only_once": 0, 
    "width": "50"
   }, 
   {
@@ -65,6 +65,8 @@
    "precision": ""
   }, 
   {
+   "default": "", 
+   "description": "", 
    "fieldname": "cus_type", 
    "fieldtype": "Select", 
    "hidden": 0, 
@@ -154,6 +156,7 @@
    "precision": ""
   }, 
   {
+   "default": "\u4e2d\u56fd", 
    "fieldname": "cus_country", 
    "fieldtype": "Data", 
    "label": "\u56fd\u5bb6", 
@@ -218,9 +221,10 @@
   }, 
   {
    "fieldname": "cus_head", 
-   "fieldtype": "Data", 
+   "fieldtype": "Link", 
    "in_list_view": 1, 
-   "label": "\u8d1f\u8d23\u5458\u5de5", 
+   "label": "\u9500\u552e\u4eba\u5458 ", 
+   "options": "Employee", 
    "permlevel": 0, 
    "precision": ""
   }, 
@@ -229,12 +233,28 @@
    "fieldtype": "Datetime", 
    "label": "\u521b\u5efa\u65f6\u95f4", 
    "permlevel": 0, 
-   "precision": ""
+   "precision": "", 
+   "reqd": 0
   }, 
   {
    "fieldname": "cus_remark", 
    "fieldtype": "Data", 
    "label": "\u5907\u6ce8", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "delivery_address", 
+   "fieldtype": "Section Break", 
+   "label": "\u6536\u8d27\u5730\u5740", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "deliveryInfo", 
+   "fieldtype": "Table", 
+   "label": "", 
+   "options": "deliveryInfo", 
    "permlevel": 0, 
    "precision": ""
   }
@@ -246,7 +266,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-01 15:13:15.117550", 
+ "modified": "2015-04-20 11:41:20.657222", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "customer", 
