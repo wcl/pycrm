@@ -23,12 +23,12 @@ def newcustomer():
         data['cus_attention'] = 1
 	employeeCode=data["cus_head"] #get employee code
 	if employeeCode=="":
-	    data["cus_remark"]=u"非扫码进入"
+	    data["cus_remark"]="非扫码进入"
 	elif frappe.db.exists("Employee", employeeCode):	
     	      headInfo = frappe.get_doc("Employee", employeeCode)
               data["cus_head"]=headInfo["em_Name"]
         else:
-	    data["cus_remark"]=u"扫码进入，但后台未找到编码为{0}的用户".format(data["cus_head"])
+	    data["cus_remark"]="扫码进入，但后台未找到编码为{0}的用户".format(data["cus_head"])
     if frappe.db.exists("customer", name):
         # return "already exists recode with name is " + name
         doc = frappe.get_doc("customer", name)
