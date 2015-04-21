@@ -10,7 +10,7 @@ logger = frappe.get_logger()
 def query():
     # u = frappe.db.sql("select * from tabcustomer", as_dict=True)[0]
     # u = frappe.db.exists("customer", "d906c05bf9")
-    #print frappe.local.form_dict.keys()
+    # print frappe.local.form_dict.keys()
     return 123
 
 
@@ -21,16 +21,19 @@ def newcustomer():
         data = json.loads(inputdata[0])
         name = data["name"]
         data['cus_attention'] = 1
-	employeeCode=data["cus_body"] #get employee code
-	if employeeCode=="":
-	    data["cus_remark"]="invlid input "
-	else:
-             em_Name=frappe.db.get_value("Employee", {"em_Code":employeeCode},"em_Name")
-             if em_Name==None:
-                 data["cus_remark"]="input not find code={0} ".format(employeeCode)
-             else:
-                 data["cus_salesmanName"]=em_Name
-                 data["cus_salesmanCode"]=employeeCode
+        employeeCode = data["cus_body"]  # get employee code
+        if employeeCode == "":
+            data["cus_remark"] = "invlid input "
+        else:
+            em_Name = frappe.db.get_value(
+                "Employee", {"em_Code": employeeCode}, "em_Name")
+            print employeeCode, "123", em_Name
+            if em_Name == None:
+                data["cus_remark"] = "input not find code={0} ".format(
+                    employeeCode)
+            else:
+                data["cus_salesmanName"] = em_Name
+                data["cus_salesmanCode"] = employeeCode
     if frappe.db.exists("customer", name):
         # return "already exists recode with name is " + name
         doc = frappe.get_doc("customer", name)
