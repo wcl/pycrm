@@ -220,7 +220,15 @@
    "precision": ""
   }, 
   {
-   "fieldname": "cus_head", 
+   "fieldname": "cus_salesmanCode", 
+   "fieldtype": "Data", 
+   "hidden": 1, 
+   "label": "\u9500\u552e\u4eba\u5458\u7f16\u7801", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "cus_salesmanName", 
    "fieldtype": "Link", 
    "in_list_view": 1, 
    "label": "\u9500\u552e\u4eba\u5458 ", 
@@ -266,10 +274,10 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-20 11:41:20.657222", 
+ "modified": "2015-04-21 06:42:35.004707", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
- "name": "Customer", 
+ "name": "customer", 
  "name_case": "", 
  "owner": "Administrator", 
  "permissions": [

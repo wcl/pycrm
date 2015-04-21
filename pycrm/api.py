@@ -2,7 +2,9 @@
 import frappe
 import json
 
+
 logger = frappe.get_logger()
+
 
 @frappe.whitelist(allow_guest=True)
 def query():
@@ -19,14 +21,15 @@ def newcustomer():
         data = json.loads(inputdata[0])
         name = data["name"]
         data['cus_attention'] = 1
-	employeeCode=data["cus_head"] #get employee code
+	employeeCode=data["cus_body"] #get employee code
 	if employeeCode=="":
-	    data["cus_remark"]="invalate input"
+	    data["cus_remark"]="非扫码进入"
 	elif frappe.db.exists("Employee", employeeCode):	
     	      headInfo = frappe.get_doc("Employee", employeeCode)
-              data["cus_head"]=headInfo["em_Name"]
+              data["cus_salesmanName"]=headInfo["em_Name"]
+              data["cus_salesmanCode"]=employeeCode
         else:
-	    data["cus_remark"]="not found from user {0}".format(data["cus_head"])
+	    data["cus_remark"]="扫码进入，但后台未找到编码为{0}的用户".format(data["cus_body"])
     if frappe.db.exists("customer", name):
         # return "already exists recode with name is " + name
         doc = frappe.get_doc("customer", name)
@@ -41,7 +44,7 @@ def newcustomer():
             "data": frappe.get_doc(data).insert().as_dict(),
             "status": "insert"
         })
-    
+
     frappe.db.commit()
 
 
@@ -61,9 +64,8 @@ def uploadfile():
         if frappe.form_dict.get('from_form'):
             try:
                 ret = frappe.utils.file_manager.upload()
-            except frappe.DuplicateEntryError as e:
+            except frappe.DuplicateEntryError:
                 # ignore pass
-                print e
                 ret = None
                 frappe.db.rollback()
         else:
@@ -74,7 +76,6 @@ def uploadfile():
         ret = None
     docname = frappe.form_dict.get('docname')
     value = ret['file_url']
-    
     #logger.debug(docname + "," + value)
     frappe.set_value("customer", docname, "cus_image", value)
     frappe.db.commit()
