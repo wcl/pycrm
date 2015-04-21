@@ -25,11 +25,11 @@ def newcustomer():
 	if employeeCode=="":
 	    data["cus_remark"]="invlid input "
 	else:
-             employeeInfo=frappe.db.get_value("Employee", {"em_Code":employeeCode})
-             if employeeInfo==None:
+             em_Name=frappe.db.get_value("Employee", {"em_Code":employeeCode},"em_Name")
+             if em_Name==None:
                  data["cus_remark"]="input not find code={0} ".format(employeeCode)
              else:
-                 data["cus_salesmanName"]=employeeInfo["em_Name"]
+                 data["cus_salesmanName"]=em_Name
                  data["cus_salesmanCode"]=employeeCode
     if frappe.db.exists("customer", name):
         # return "already exists recode with name is " + name
