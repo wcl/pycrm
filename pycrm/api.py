@@ -2,9 +2,7 @@
 import frappe
 import json
 
-
 logger = frappe.get_logger()
-
 
 @frappe.whitelist(allow_guest=True)
 def query():
@@ -43,7 +41,7 @@ def newcustomer():
             "data": frappe.get_doc(data).insert().as_dict(),
             "status": "insert"
         })
-
+    
     frappe.db.commit()
 
 
@@ -63,8 +61,9 @@ def uploadfile():
         if frappe.form_dict.get('from_form'):
             try:
                 ret = frappe.utils.file_manager.upload()
-            except frappe.DuplicateEntryError:
+            except frappe.DuplicateEntryError as e:
                 # ignore pass
+                print e
                 ret = None
                 frappe.db.rollback()
         else:
@@ -75,6 +74,7 @@ def uploadfile():
         ret = None
     docname = frappe.form_dict.get('docname')
     value = ret['file_url']
+    
     #logger.debug(docname + "," + value)
     frappe.set_value("customer", docname, "cus_image", value)
     frappe.db.commit()
