@@ -27,7 +27,6 @@ def newcustomer():
         else:
             em_Name = frappe.db.get_value(
                 "Employee", {"em_Code": employeeCode}, "em_Name")
-            print employeeCode, "123", em_Name
             if em_Name == None:
                 data["cus_remark"] = "input not find code={0} ".format(
                     employeeCode)

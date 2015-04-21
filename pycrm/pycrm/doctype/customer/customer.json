@@ -277,7 +277,7 @@
  "modified": "2015-04-21 06:42:35.004707", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
- "name": "customer", 
+ "name": "Customer", 
  "name_case": "", 
  "owner": "Administrator", 
  "permissions": [
