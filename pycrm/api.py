@@ -24,13 +24,13 @@ def newcustomer():
         employeeCode = data["cus_body"]  # get employee code
         if employeeCode == "":
             data["cus_remark"] = "invlid input "
-        elif frappe.db.exists("Employee", {"em_Code": ("=" + employeeCode)}):
+        elif frappe.db.exists("Employee", {"em_Code": employeeCode}):
             headInfo = frappe.get_doc("Employee", employeeCode)
             data["cus_salesmanName"] = headInfo["em_Name"]
             data["cus_salesmanCode"] = employeeCode
         else:
             data["cus_remark"] = "input not find code={0} ".format(
-                data["cus_body"])
+                employeeCode)
     if frappe.db.exists("customer", name):
         # return "already exists recode with name is " + name
         doc = frappe.get_doc("customer", name)
