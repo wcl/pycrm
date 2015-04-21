@@ -25,7 +25,7 @@ def newcustomer():
 	if employeeCode=="":
 	    data["cus_remark"]="invlid input "
 	else:
-             employeeInfo=frappe.db.get_values("Employee", {"em_Code":employeeCode})
+             employeeInfo=frappe.db.get_value("Employee", {"em_Code":employeeCode})
              if employeeInfo==None:
                  data["cus_remark"]="input not find code={0} ".format(employeeCode)
              else:
