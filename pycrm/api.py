@@ -1,10 +1,9 @@
 # -*- coding: cp936 -*-
 import frappe
 import json
+import logging
 
-
-logger = frappe.get_logger()
-
+logging.basicConfig(filename="api.log",level=logging.DEBUG)
 
 @frappe.whitelist(allow_guest=True)
 def query():
@@ -18,7 +17,7 @@ def query():
 def newcustomer():
     inputdata = frappe.local.request.stream.readlines()
     if inputdata:
-        frappe.msgprint(inputdata[0])
+        logging.debug("inputdata[0]="+inputdata[0])
         data = json.loads(inputdata[0])
         name = data["name"]
         data['cus_attention'] = 1
