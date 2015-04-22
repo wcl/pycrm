@@ -18,6 +18,7 @@ def query():
 def newcustomer():
     inputdata = frappe.local.request.stream.readlines()
     if inputdata:
+        frappe.msgprint(inputdata[0])
         data = json.loads(inputdata[0])
         name = data["name"]
         data['cus_attention'] = 1
@@ -39,6 +40,7 @@ def newcustomer():
     if frappe.db.exists("Customer", name):
         # return "already exists recode with name is " + name
         doc = frappe.get_doc("Customer", name)
+        
         doc.update(data)
         frappe.local.response.update({
             "data": doc.save().as_dict(),
