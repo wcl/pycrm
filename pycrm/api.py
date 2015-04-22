@@ -21,7 +21,10 @@ def newcustomer():
         data = json.loads(inputdata[0])
         name = data["name"]
         data['cus_attention'] = 1
+        data['cus_code'] = name #
         employeeCode = data["cus_body"]  # get employee code
+        if employeeCode.startswith("last_trade_no"):
+            employeeCode=""
         if employeeCode == "":
             data["cus_remark"] = "invlid input "
         else:

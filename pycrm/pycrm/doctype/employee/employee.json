@@ -1,8 +1,8 @@
 {
  "allow_copy": 0, 
  "allow_import": 0, 
- "allow_rename": 0, 
- "autoname": "field:em_Name", 
+ "allow_rename": 1, 
+ "autoname": "field:em_Code", 
  "creation": "2015-04-20 11:03:41.829236", 
  "custom": 0, 
  "docstatus": 0, 
@@ -33,7 +33,7 @@
    "report_hide": 0, 
    "reqd": 1, 
    "search_index": 0, 
-   "set_only_once": 0
+   "set_only_once": 1
   }, 
   {
    "allow_on_submit": 0, 
@@ -101,7 +101,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-20 13:31:01.721705", 
+ "modified": "2015-04-22 06:47:25.184948", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "Employee", 
@@ -150,5 +150,6 @@
  "read_only": 0, 
  "read_only_onload": 0, 
  "sort_field": "modified", 
- "sort_order": "DESC"
+ "sort_order": "DESC", 
+ "title_field": "em_Name"
 }
