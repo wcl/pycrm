@@ -2,8 +2,8 @@
 import frappe
 import json
 import logging
-
-logging.basicConfig(filename="api.log",level=logging.DEBUG)
+import time,datetime
+logging.basicConfig(filename="..//logs//api.log",level=logging.DEBUG)
 
 @frappe.whitelist(allow_guest=True)
 def query():
@@ -17,7 +17,8 @@ def query():
 def newcustomer():
     inputdata = frappe.local.request.stream.readlines()
     if inputdata:
-        logging.debug("inputdata[0]="+inputdata[0])
+        currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+        logging.debug(currentTime+"inputdata[0]="+inputdata[0])
         data = json.loads(inputdata[0])
         name = data["name"]
         data['cus_attention'] = 1
