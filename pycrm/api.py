@@ -23,20 +23,37 @@ def newcustomer():
         name = data["name"]
         data['cus_attention'] = 1
         data['cus_code'] = name #
-        employeeCode = data["cus_body"]  # get employee code
-        if employeeCode.startswith("last_trade_no"):
-            employeeCode=""
-        if employeeCode == "":
+        employeeMark = data["cus_body"]  # em_Code,em_Mobile,em_Email
+        if employeeMark.startswith("last_trade_no"):
+            employeeMark=""
+        if employeeMark == "":
             data["cus_remark"] = "invlid input "
         else:
-            em_Name = frappe.db.get_value(
-                "Employee", {"em_Code": employeeCode}, "em_Name")
-            if em_Name == None:
-                data["cus_remark"] = "input not find code={0} ".format(
-                    employeeCode)
+            em_Code = frappe.db.get_value("Employee", {"em_Code": employeeMark}, "em_Code")
+            if data["isbind"]=="1":
+                if em_Code == None: 
+                    em_Code = frappe.db.get_value("Employee", {"em_Mobile": employeeMark}, "em_Code")
+                    if em_Code==None:
+                        em_Code = frappe.db.get_value("Employee", {"em_Email": employeeMark}, "em_Code")
+                        if em_Code==None:
+                            data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
+                        else:
+                            data["cus_salesmanCode"] = em_Code
+                            data["cus_remark"] = "Bind,input  find by Email={0} ".format(em_Code)
+                    else:
+                        data["cus_salesmanCode"] = em_Code
+                        data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(em_Code)
+                else:
+                    data["cus_salesmanCode"] = em_Code
+                    data["cus_remark"] = "Bind,input find by Code={0} ".format(em_Code)
             else:
-                data["cus_salesmanName"] = em_Name
-                data["cus_salesmanCode"] = employeeCode
+                if em_Code == None:
+                    data["cus_remark"] = "Scan code,input not find by Code={0} ".format(em_Code)
+                else:
+                    #data["cus_salesmanName"] = em_Name
+                    data["cus_salesmanCode"] = em_Code
+            
+                
     if frappe.db.exists("Customer", name):
         # return "already exists recode with name is " + name
         doc = frappe.get_doc("Customer", name)
