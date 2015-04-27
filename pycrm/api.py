@@ -59,18 +59,18 @@ def newcustomer():
                 if em_Code != None:
                     em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
                     if em_Name != None:
-                        message=u"已绑定销售人员：{0}".format(em_Name)
+                        message=u"您已绑定销售人员：{0}".format(em_Name)
                         
         if frappe.db.exists("Customer", name):
             # return "already exists recode with name is " + name
             doc = frappe.get_doc("Customer", name)
             doc.update(data)
-            doc.save().as_dict()
+            doc.save()
             return message
-            #frappe.local.response.update({"data": ,"status": "update","message":message})
+            #frappe.local.response.update({"data":doc.save().as_dict(),"status": "update","message":message})
         else:
             data.update({"doctype": "Customer"})
-            frappe.get_doc(data).insert().as_dict()
+            frappe.get_doc(data).insert()
             #frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert","message":message})
             return message
         frappe.db.commit()

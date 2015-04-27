@@ -60,7 +60,7 @@
    "in_filter": 1, 
    "in_list_view": 1, 
    "label": "\u6027\u522b", 
-   "options": "\u7537\n\u5973", 
+   "options": "\u7537\n\u5973\n\u672a\u77e5", 
    "permlevel": 0, 
    "precision": ""
   }, 
@@ -192,6 +192,7 @@
    "precision": ""
   }, 
   {
+   "default": "\u79c1\u8425\u4f01\u4e1a", 
    "fieldname": "cus_property", 
    "fieldtype": "Select", 
    "label": "\u516c\u53f8\u5c5e\u6027", 
@@ -266,7 +267,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-27 11:08:13.082431", 
+ "modified": "2015-04-27 14:31:31.516545", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "Customer", 
