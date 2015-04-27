@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-  
+# -*- coding: utf-8 -*-  
 import frappe
 import json
 import logging
@@ -56,7 +56,7 @@ def newcustomer():
                         data["cus_salesmanCode"] = em_Code
                         data["cus_remark"] = "Scan,input find by Code={0} ".format(em_Code)
                 #find Employee Name
-                if em_Code == None:
+                if em_Code != None:
                     em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
                     if em_Name != None:
                         message=u"已绑定销售人员：{0}".format(em_Name)
