@@ -1,4 +1,4 @@
-# -*- coding: cp936 -*-
+﻿# -*- coding: utf-8 -*-  
 import frappe
 import json
 import logging
@@ -25,6 +25,7 @@ def newcustomer():
             data['cus_attention'] = 1
             data['cus_code'] = name #
             employeeMark = data["cus_body"]  # em_Code,em_Mobile,em_Email
+            message=""
             if employeeMark.startswith("last_trade_no"):
                 employeeMark=""
             if employeeMark == "":
@@ -38,6 +39,7 @@ def newcustomer():
                             em_Code = frappe.db.get_value("Employee", {"em_Email": employeeMark}, "em_Code")
                             if em_Code==None:
                                 data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
+                                message=u"通过编码，手机号，邮箱均未找到对应的销售人员"
                             else:
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
@@ -53,19 +55,24 @@ def newcustomer():
                     else:
                         data["cus_salesmanCode"] = em_Code
                         data["cus_remark"] = "Scan,input find by Code={0} ".format(em_Code)
-            
+                #find Employee Name
+                if em_Code == None:
+                    em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
+                    if em_Name != None:
+                        message=u"已绑定销售人员：{0}".format(em_Name)
+                        
         if frappe.db.exists("Customer", name):
             # return "already exists recode with name is " + name
             doc = frappe.get_doc("Customer", name)
             doc.update(data)
-            frappe.local.response.update({"data": doc.save().as_dict(),"status": "update"})
+            frappe.local.response.update({"data": doc.save().as_dict(),"status": "update","message":message})
         else:
             data.update({"doctype": "Customer"})
-            frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert"})
+            frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert","message":message})
         frappe.db.commit()
     except :
         logging.exception(currentTime)
-        
+
 @frappe.whitelist()
 def cancelatt():
     print frappe.form_dict

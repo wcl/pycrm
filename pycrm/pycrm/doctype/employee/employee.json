@@ -63,12 +63,13 @@
    "precision": ""
   }, 
   {
-   "fieldname": "em_Telephone", 
+   "fieldname": "em_Address", 
    "fieldtype": "Data", 
    "in_list_view": 1, 
-   "label": "\u56fa\u5b9a\u7535\u8bdd", 
+   "label": "\u5730\u5740", 
    "permlevel": 0, 
-   "precision": ""
+   "precision": "", 
+   "width": ""
   }, 
   {
    "fieldname": "em_ColumnBreak0", 
@@ -92,6 +93,14 @@
    "label": "\u7535\u5b50\u90ae\u7bb1", 
    "permlevel": 0, 
    "precision": ""
+  }, 
+  {
+   "fieldname": "em_Telephone", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u56fa\u5b9a\u7535\u8bdd", 
+   "permlevel": 0, 
+   "precision": ""
   }
  ], 
  "hide_heading": 0, 
@@ -101,7 +110,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-22 06:47:25.184948", 
+ "modified": "2015-04-27 13:12:23.055070", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "Employee", 
