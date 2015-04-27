@@ -71,7 +71,7 @@ def newcustomer():
             data.update({"doctype": "Customer"})
             frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert"})
         frappe.db.commit()
-    except e:
+    except Exception,e:
         logging.error(currentTime+"error="+e)
 
 
