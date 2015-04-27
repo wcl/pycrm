@@ -15,69 +15,64 @@ def query():
 
 @frappe.whitelist()
 def newcustomer():
-    inputdata = frappe.local.request.stream.readlines()
-    if inputdata:
-        currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-        logging.debug(currentTime+"inputdata[0]="+inputdata[0])
-        data = json.loads(inputdata[0])
-        name = data["name"]
-        data['cus_attention'] = 1
-        data['cus_code'] = name #
-        employeeMark = data["cus_body"]  # em_Code,em_Mobile,em_Email
-        if employeeMark.startswith("last_trade_no"):
-            employeeMark=""
-        if employeeMark == "":
-            data["cus_remark"] = "invlid input "
-        else:
-            em_Code = frappe.db.get_value("Employee", {"em_Code": employeeMark}, "em_Code")
-            if data["isbind"]=="1":
-                if em_Code == None: 
-                    em_Code = frappe.db.get_value("Employee", {"em_Mobile": employeeMark}, "em_Code")
-                    if em_Code==None:
-                        em_Code = frappe.db.get_value("Employee", {"em_Email": employeeMark}, "em_Code")
+    try:
+        inputdata = frappe.local.request.stream.readlines()
+        if inputdata:
+            currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+            logging.debug(currentTime+"inputdata[0]="+inputdata[0])
+            data = json.loads(inputdata[0])
+            name = data["name"]
+            data['cus_attention'] = 1
+            data['cus_code'] = name #
+            employeeMark = data["cus_body"]  # em_Code,em_Mobile,em_Email
+            if employeeMark.startswith("last_trade_no"):
+                employeeMark=""
+            if employeeMark == "":
+                data["cus_remark"] = "invlid input "
+            else:
+                em_Code = frappe.db.get_value("Employee", {"em_Code": employeeMark}, "em_Code")
+                if data["isbind"]=="1":
+                    if em_Code == None: 
+                        em_Code = frappe.db.get_value("Employee", {"em_Mobile": employeeMark}, "em_Code")
                         if em_Code==None:
-                            data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
+                            em_Code = frappe.db.get_value("Employee", {"em_Email": employeeMark}, "em_Code")
+                            if em_Code==None:
+                                data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
+                            else:
+                                data["cus_salesmanCode"] = em_Code
+                                em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
+                                data["cus_salesmanName"] = em_Name
+                                data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
                         else:
                             data["cus_salesmanCode"] = em_Code
                             em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
                             data["cus_salesmanName"] = em_Name
-                            data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
+                            data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(employeeMark)
                     else:
                         data["cus_salesmanCode"] = em_Code
                         em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
                         data["cus_salesmanName"] = em_Name
-                        data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(employeeMark)
+                        data["cus_remark"] = "Bind,input find by Code={0} ".format(em_Code)
                 else:
-                    data["cus_salesmanCode"] = em_Code
-                    em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                    data["cus_salesmanName"] = em_Name
-                    data["cus_remark"] = "Bind,input find by Code={0} ".format(em_Code)
-            else:
-                if em_Code == None:
-                    data["cus_remark"] = "Scan code,input not find by Code={0} ".format(em_Code)
-                else:
-                    data["cus_salesmanCode"] = em_Code
-                    em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                    data["cus_salesmanName"] = em_Name
+                    if em_Code == None:
+                        data["cus_remark"] = "Scan code,input not find by Code={0} ".format(em_Code)
+                    else:
+                        data["cus_salesmanCode"] = em_Code
+                        em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
+                        data["cus_salesmanName"] = em_Name
             
                 
-    if frappe.db.exists("Customer", name):
-        # return "already exists recode with name is " + name
-        doc = frappe.get_doc("Customer", name)
-        
-        doc.update(data)
-        frappe.local.response.update({
-            "data": doc.save().as_dict(),
-            "status": "update"
-        })
-    else:
-        data.update({"doctype": "Customer"})
-        frappe.local.response.update({
-            "data": frappe.get_doc(data).insert().as_dict(),
-            "status": "insert"
-        })
-
-    frappe.db.commit()
+        if frappe.db.exists("Customer", name):
+            # return "already exists recode with name is " + name
+            doc = frappe.get_doc("Customer", name)
+            doc.update(data)
+            frappe.local.response.update({"data": doc.save().as_dict(),"status": "update"})
+        else:
+            data.update({"doctype": "Customer"})
+            frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert"})
+        frappe.db.commit()
+        except e:
+             logging.debug(currentTime+"error="+e)
 
 
 @frappe.whitelist()
