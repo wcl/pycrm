@@ -196,7 +196,7 @@
    "fieldname": "cus_property", 
    "fieldtype": "Select", 
    "label": "\u516c\u53f8\u5c5e\u6027", 
-   "options": "\u56fd\u6709\u4f01\u4e1a\n\u96c6\u4f53\u4f01\u4e1a\n\u8054\u8425\u4f01\u4e1a \n\u80a1\u4efd\u5408\u4f5c\u5236\u4f01\u4e1a\n\u79c1\u8425\u4f01\u4e1a   \n\u4e2a\u4f53\u6237\n\u5408\u4f19\u4f01\u4e1a\n\u6709\u9650\u8d23\u4efb\u516c\u53f8\n\u80a1\u4efd\u6709\u9650\u516c\u53f8", 
+   "options": "\u56fd\u6709\u4f01\u4e1a\n\u96c6\u4f53\u4f01\u4e1a\n\u8054\u8425\u4f01\u4e1a\n\u80a1\u4efd\u5408\u4f5c\u5236\u4f01\u4e1a\n\u79c1\u8425\u4f01\u4e1a\n\u4e2a\u4f53\u6237\n\u5408\u4f19\u4f01\u4e1a\n\u6709\u9650\u8d23\u4efb\u516c\u53f8\n\u80a1\u4efd\u6709\u9650\u516c\u53f8", 
    "permlevel": 0, 
    "precision": ""
   }, 
@@ -267,7 +267,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-27 14:31:31.516545", 
+ "modified": "2015-04-27 15:25:17.746321", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "Customer", 
