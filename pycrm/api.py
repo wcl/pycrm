@@ -40,28 +40,20 @@ def newcustomer():
                                 data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
                             else:
                                 data["cus_salesmanCode"] = em_Code
-                                em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                                data["cus_salesmanName"] = em_Name
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
                         else:
                             data["cus_salesmanCode"] = em_Code
-                            em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                            data["cus_salesmanName"] = em_Name
                             data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(employeeMark)
                     else:
                         data["cus_salesmanCode"] = em_Code
-                        em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                        data["cus_salesmanName"] = em_Name
                         data["cus_remark"] = "Bind,input find by Code={0} ".format(em_Code)
                 else:
                     if em_Code == None:
                         data["cus_remark"] = "Scan code,input not find by Code={0} ".format(em_Code)
                     else:
                         data["cus_salesmanCode"] = em_Code
-                        em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                        data["cus_salesmanName"] = em_Name
+                        data["cus_remark"] = "Scan,input find by Code={0} ".format(em_Code)
             
-                
         if frappe.db.exists("Customer", name):
             # return "already exists recode with name is " + name
             doc = frappe.get_doc("Customer", name)
