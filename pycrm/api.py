@@ -65,10 +65,14 @@ def newcustomer():
             # return "already exists recode with name is " + name
             doc = frappe.get_doc("Customer", name)
             doc.update(data)
-            frappe.local.response.update({"data": doc.save().as_dict(),"status": "update","message":message})
+            doc.save().as_dict()
+            return message
+            #frappe.local.response.update({"data": ,"status": "update","message":message})
         else:
             data.update({"doctype": "Customer"})
-            frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert","message":message})
+            frappe.get_doc(data).insert().as_dict()
+            #frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert","message":message})
+            return message
         frappe.db.commit()
     except :
         logging.exception(currentTime)
