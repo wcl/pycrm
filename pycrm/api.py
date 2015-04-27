@@ -72,7 +72,7 @@ def newcustomer():
             frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert"})
         frappe.db.commit()
     except Exception,e:
-        logging.error(currentTime+"error="+e)
+        logging.error(currentTime+"error="+str(e))
 
 
 @frappe.whitelist()
