@@ -80,7 +80,7 @@ def sendred():
             currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
             logging.debug(currentTime+"inputdata[0]="+inputdata[0])
             data = json.loads(inputdata[0])
-            logging.debug(currentTime+"data="+data)
+            logging.debug(currentTime+"data="+str(data))
             query_str = urllib.urlencode(sorted(data.items())) + "&key="+data["key"]
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
