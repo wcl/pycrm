@@ -78,10 +78,10 @@ def sendred():
 
             newdata = dict(
                 [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
-            sorteddata = sorted(newdata.items())
-            logging.debug("sorteddata:" + str(sorteddata))
 
-            query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
+            # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
+            query_str = '&'.join(['%s=%s' % (key, value) for (key, value) in sorted(newdata.items()).items()]) + "&key=" + myKey
+
             logging.debug("query_str:" + query_str)
 
             sign = hashlib.md5(query_str).hexdigest().upper()
