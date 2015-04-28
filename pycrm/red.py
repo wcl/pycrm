@@ -63,8 +63,8 @@ def sendred():
         if inputdata:
             logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
-            global num
-            snum=str(num+1)
+            #global num
+            #snum=str(num+1)
             billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
             data["mch_billno"]=billno
             logging.debug(currentTime + "billno=" + billno)
