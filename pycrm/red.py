@@ -56,7 +56,7 @@ opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
 
 def unitoutf(v):
-    return unicode(v).encode('utf-8')
+    return v.encode('utf-8')
 
 
 @frappe.whitelist(allow_guest=True)
