@@ -20,7 +20,7 @@ def to_tag(k, v):
 def get_content(k, v):
     if isinstance(v, basestring):
         # it's a string, so just return the value
-        return str(v)
+        return unicode(v).encode('utf-8')
     elif isinstance(v, dict):
         # it's a dict, so create a new tag for each element
         # and join them with newlines
