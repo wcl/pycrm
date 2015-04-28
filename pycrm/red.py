@@ -55,28 +55,29 @@ cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
 
+
 @frappe.whitelist(allow_guest=True)
 def sendred():
     try:
         inputdata = frappe.local.request.stream.readlines()
-        currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+        currentTime = datetime.datetime.strftime(
+            datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
         if inputdata:
             logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
             #global num
-            #snum=str(num+1)
-            billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
-            data["mch_billno"]=billno
+            # snum=str(num+1)
+            billno = data["mch_id"] + datetime.datetime.strftime(
+                datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
+            data["mch_billno"] = billno
             logging.debug(currentTime + "billno=" + billno)
             data["nonce_str"] = "d2asf1323242sdf1a"
-            myKey=data["key"]
+            myKey = data["key"]
             del data["key"]
             logging.debug(currentTime + "data=" + str(data))
 
-            data1 = urllib.urlencode(dict([k.encode('utf-8'),unicode(v).encode('utf-8')] for k,v in sorted(data.items())))
-
-            query_str = urllib.urlencode(
-                sorted(data.items())) + "&key=" + myKey
+            query_str = urllib.urlencode(dict([k.encode(
+                'utf-8'), unicode(v).encode('utf-8')] for k, v in sorted(data.items()))) + "&key=" + myKey
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
             body = to_tag("xml", data)
@@ -88,4 +89,3 @@ def sendred():
             return response
     except:
         logging.exception(currentTime)
-
