@@ -54,7 +54,7 @@ class HTTPSClientAuthHandler(urllib2.HTTPSHandler):
 cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
-
+num=0
 @frappe.whitelist(allow_guest=True)
 def sendred():
     try:
@@ -63,9 +63,9 @@ def sendred():
         if inputdata:
             logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
-            global i
-            s=str(i+1)
-            billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + (10-len(s))*'0'+s
+            global num
+            snum=str(num+1)
+            billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + (10-len(snum))*'0'+snum
             data["mch_billno"]=billno
             logging.debug(currentTime + "billno=" + billno)
             data["nonce_str"] = "d2asf1323242sdf1a"
@@ -75,7 +75,7 @@ def sendred():
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
             body = to_tag("xml", data)
-            logging.debug(currentTime + "body=" + str(body))
+            logging.debug(currentTime + "body=" + str(body)+"Type="+str(type(data)))
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack",
                                   data=body, headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
