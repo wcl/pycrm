@@ -15,7 +15,6 @@ logging.basicConfig(filename="..//logs//api.log", level=logging.DEBUG)
 def to_tag(k, v):
     return '<{key}>{value}</{key}>'.format(key=k, value=get_content(k, v))
 
-
 def get_content(k, v):
     if isinstance(v, str):
         # it's a string, so just return the value
@@ -75,23 +74,19 @@ data = {
 
 @frappe.whitelist(allow_guest=True)
 def sendred():
-    inputdata = frappe.local.request.stream.readlines()
-    if inputdata:
-        currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-        logging.debug(currentTime+"inputdata[0]="+inputdata[0])
-        data = json.loads(inputdata[0])
-        query_str = urllib.urlencode(
-            sorted(data.items())) + "&key="+data["key"]
-
-        sign = hashlib.md5(
-            query_str).hexdigest().upper()
-        data["sign"] = sign
-        body = to_tag("xml", data)
-
-        req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack", data=body,
-                              headers={'Content-Type': 'application/xml'})
-
-        u = urllib2.urlopen(req)
-        response = u.read()
-
-        return response
+    try:
+        inputdata = frappe.local.request.stream.readlines()
+        if inputdata:
+            currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+            logging.debug(currentTime+"inputdata[0]="+inputdata[0])
+            data = json.loads(inputdata[0])
+            query_str = urllib.urlencode(sorted(data.items())) + "&key="+data["key"]
+            sign = hashlib.md5(query_str).hexdigest().upper()
+            data["sign"] = sign
+            body = to_tag("xml", data)
+            req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack", data=body,headers={'Content-Type': 'application/xml'})
+            u = urllib2.urlopen(req)
+            response = u.read()
+            return response
+    except:
+        logging.exception(currentTime)
