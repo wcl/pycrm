@@ -72,6 +72,9 @@ def sendred():
             myKey=data["key"]
             del data["key"]
             logging.debug(currentTime + "data=" + str(data))
+
+            data1 = urllib.urlencode(dict([k.encode('utf-8'),unicode(v).encode('utf-8')] for k,v in sorted(data.items())))
+
             query_str = urllib.urlencode(
                 sorted(data.items())) + "&key=" + myKey
             sign = hashlib.md5(query_str).hexdigest().upper()
