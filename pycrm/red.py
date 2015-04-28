@@ -54,7 +54,7 @@ class HTTPSClientAuthHandler(urllib2.HTTPSHandler):
 cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
-num=0
+
 @frappe.whitelist(allow_guest=True)
 def sendred():
     try:
@@ -65,7 +65,7 @@ def sendred():
             data = json.loads(inputdata[0])
             global num
             snum=str(num+1)
-            billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + (10-len(snum))*'0'+snum
+            billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
             data["mch_billno"]=billno
             logging.debug(currentTime + "billno=" + billno)
             data["nonce_str"] = "d2asf1323242sdf1a"
