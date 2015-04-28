@@ -78,7 +78,7 @@ def sendred():
 
             query_str = urllib.urlencode(dict([k.encode(
                 'utf-8'), unicode(v).encode('utf-8')] for k, v in sorted(data.items()))) + unicode("&key=" + myKey).encode('utf-8')
-            logging.debug("query_str:", query_str)
+            logging.debug(query_str)
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
             body = to_tag("xml", data)
