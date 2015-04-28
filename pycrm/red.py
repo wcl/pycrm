@@ -84,10 +84,10 @@ def sendred():
             query_str = ""
             for key, value in querydata:
                 query_str += key + "=" + value + "&"
-            # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
-            query_str += "key=" + myKey
 
             logging.debug("query_str:" + query_str)
+            # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
+            query_str += unicode("key=" + myKey).encode('utf-8')
 
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
