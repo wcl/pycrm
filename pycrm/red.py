@@ -78,7 +78,7 @@ def sendred():
 
             newdata = dict(
                 [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
-            sorteddata = sorted(newdata)
+            sorteddata = sorted(newdata.items())
             logging.debug("sorteddata:" + str(sorteddata))
 
             query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
