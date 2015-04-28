@@ -55,9 +55,6 @@ cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
 
-def unitoutf(v):
-    return v.encode('utf-8')
-
 
 @frappe.whitelist(allow_guest=True)
 def sendred():
@@ -83,8 +80,12 @@ def sendred():
                 [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
 
             querydata = sorted(newdata.items())
+
+            query_str = ""
+            for key, value in querydata:
+                query_str += key + "=" + value + "&"
             # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
-            query_str = '&'.join(['%s=%s' % (unitoutf(key), unitoutf(value)) for (key, value) in querydata]) + "&key=" + myKey
+            query_str += "key=" + myKey
 
             logging.debug("query_str:" + query_str)
 
