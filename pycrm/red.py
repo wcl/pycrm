@@ -59,16 +59,14 @@ i=0
 @frappe.whitelist(allow_guest=True)
 def sendred():
     try:
-        i=i+1
-        s=str(i)
         inputdata = frappe.local.request.stream.readlines()
+        currentTime = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
         if inputdata:
-            currentTime = datetime.datetime.strftime(
-                datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
             logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
-            billno = data[
-                "mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + (10-len(s))*'0'+s
+            billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + (10-len(str(i+1)))*'0'+str(i+1)
+            data["mch_billno"]=billno
+            logging.debug(currentTime + "billno=" + billno)
             data["nonce_str"] = "d2asf1323242sdf1a"
             logging.debug(currentTime + "data=" + str(data))
             query_str = urllib.urlencode(
