@@ -18,9 +18,9 @@ def to_tag(k, v):
 
 
 def get_content(k, v):
-    if isinstance(v, str):
+    if isinstance(v, basestring):
         # it's a string, so just return the value
-        return v
+        return str(v)
     elif isinstance(v, dict):
         # it's a dict, so create a new tag for each element
         # and join them with newlines
@@ -75,7 +75,7 @@ def sendred():
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
             body = to_tag("xml", data)
-            logging.debug(currentTime + "body=" + str(body)+"Type="+str(type(data)))
+            logging.debug(currentTime + "body=" + str(body))
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack",
                                   data=body, headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
