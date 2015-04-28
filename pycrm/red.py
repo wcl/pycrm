@@ -69,9 +69,11 @@ def sendred():
             data["mch_billno"]=billno
             logging.debug(currentTime + "billno=" + billno)
             data["nonce_str"] = "d2asf1323242sdf1a"
+            myKey=data["key"]
+            del data["key"]
             logging.debug(currentTime + "data=" + str(data))
             query_str = urllib.urlencode(
-                sorted(data.items())) + "&key=" + data["key"]
+                sorted(data.items())) + "&key=" + myKey
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
             body = to_tag("xml", data)
