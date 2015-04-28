@@ -12,8 +12,10 @@ import time
 import datetime
 logging.basicConfig(filename="..//logs//api.log", level=logging.DEBUG)
 
+
 def to_tag(k, v):
     return '<{key}>{value}</{key}>'.format(key=k, value=get_content(k, v))
+
 
 def get_content(k, v):
     if isinstance(v, str):
@@ -53,41 +55,32 @@ cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
 
-data = {
-    "mch_billno": "",
-    "mch_id": "",
-    "wxappid": "",
-    "nick_name": '',
-    "send_name": '',
-    "re_openid": "",
-    "total_amount": "",
-    "min_value": "",
-    "max_value": "",
-    "total_num": "",
-    "wishing": "",
-    "client_ip": "",
-    "act_name": "",
-    "remark": "",
-    "nonce_str": "d2asf1323242sdf1a"
-}
-
-
+i=0
 @frappe.whitelist(allow_guest=True)
 def sendred():
     try:
+        i=i+1
+        s=str(i)
         inputdata = frappe.local.request.stream.readlines()
         if inputdata:
-            currentTime=datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
-            logging.debug(currentTime+"inputdata[0]="+inputdata[0])
+            currentTime = datetime.datetime.strftime(
+                datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+            logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
-            logging.debug(currentTime+"data="+str(data))
-            query_str = urllib.urlencode(sorted(data.items())) + "&key="+data["key"]
+            billno = data[
+                "mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + (10-len(s))*'0'+s
+            data["nonce_str"] = "d2asf1323242sdf1a"
+            logging.debug(currentTime + "data=" + str(data))
+            query_str = urllib.urlencode(
+                sorted(data.items())) + "&key=" + data["key"]
             sign = hashlib.md5(query_str).hexdigest().upper()
             data["sign"] = sign
             body = to_tag("xml", data)
-            req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack", data=body,headers={'Content-Type': 'application/xml'})
+            req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack",
+                                  data=body, headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
             response = u.read()
             return response
     except:
         logging.exception(currentTime)
+
