@@ -100,3 +100,45 @@ def sendred():
             return response
     except:
         logging.exception(currentTime)
+
+
+@frappe.whitelist(allow_guest=True)
+def sendcoupon():
+    try:
+        inputdata = frappe.local.request.stream.readlines()
+        currentTime = datetime.datetime.strftime(
+            datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+        if inputdata:
+            logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
+            data = json.loads(inputdata[0])
+            #global num
+            # snum=str(num+1)
+            data["nonce_str"] = "d2asf1323242sdf1a"
+            myKey = data["key"]
+            del data["key"]
+            logging.debug(currentTime + "data=" + str(data))
+
+            newdata = dict(
+                [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
+
+            querydata = sorted(newdata.items())
+
+            query_str = ""
+            for key, value in querydata:
+                query_str += key + "=" + value + "&"
+
+            logging.debug("query_str:" + query_str)
+            # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
+            query_str += unicode("key=" + myKey).encode('utf-8')
+
+            sign = hashlib.md5(query_str).hexdigest().upper()
+            data["sign"] = sign
+            body = to_tag("xml", data)
+            logging.debug(currentTime + "body=" + str(body))
+            req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon",
+                                  data=body, headers={'Content-Type': 'application/xml'})
+            u = urllib2.urlopen(req)
+            response = u.read()
+            return response
+    except:
+        logging.exception(currentTime)
