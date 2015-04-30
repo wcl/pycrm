@@ -56,6 +56,32 @@ opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
 
 
+def getbody(data):
+    data["nonce_str"] = "d2asf1323242sdf1a"
+    myKey = data["key"]
+    del data["key"]
+    logging.debug(currentTime + "data=" + str(data))
+
+    newdata = dict(
+        [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
+
+    querydata = sorted(newdata.items())
+
+    query_str = ""
+    for key, value in querydata:
+        query_str += key + "=" + value + "&"
+
+    logging.debug("query_str:" + query_str)
+    # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
+    query_str += unicode("key=" + myKey).encode('utf-8')
+
+    sign = hashlib.md5(query_str).hexdigest().upper()
+    data["sign"] = sign
+    body = to_tag("xml", data)
+    logging.debug(currentTime + "body=" + str(body))
+    return body
+
+
 @frappe.whitelist(allow_guest=True)
 def sendred():
     try:
@@ -71,30 +97,9 @@ def sendred():
                 datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
             data["mch_billno"] = billno
             logging.debug(currentTime + "billno=" + billno)
-            data["nonce_str"] = "d2asf1323242sdf1a"
-            myKey = data["key"]
-            del data["key"]
-            logging.debug(currentTime + "data=" + str(data))
 
-            newdata = dict(
-                [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
-
-            querydata = sorted(newdata.items())
-
-            query_str = ""
-            for key, value in querydata:
-                query_str += key + "=" + value + "&"
-
-            logging.debug("query_str:" + query_str)
-            # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
-            query_str += unicode("key=" + myKey).encode('utf-8')
-
-            sign = hashlib.md5(query_str).hexdigest().upper()
-            data["sign"] = sign
-            body = to_tag("xml", data)
-            logging.debug(currentTime + "body=" + str(body))
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack",
-                                  data=body, headers={'Content-Type': 'application/xml'})
+                                  data=getbody(data), headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
             response = u.read()
             return response
@@ -113,30 +118,9 @@ def sendcoupon():
             data = json.loads(inputdata[0])
             #global num
             # snum=str(num+1)
-            data["nonce_str"] = "d2asf1323242sdf1a"
-            myKey = data["key"]
-            del data["key"]
-            logging.debug(currentTime + "data=" + str(data))
-
-            newdata = dict(
-                [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
-
-            querydata = sorted(newdata.items())
-
-            query_str = ""
-            for key, value in querydata:
-                query_str += key + "=" + value + "&"
-
-            logging.debug("query_str:" + query_str)
-            # query_str = urllib.urlencode(sorteddata) + "&key=" + myKey
-            query_str += unicode("key=" + myKey).encode('utf-8')
-
-            sign = hashlib.md5(query_str).hexdigest().upper()
-            data["sign"] = sign
-            body = to_tag("xml", data)
-            logging.debug(currentTime + "body=" + str(body))
+            
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon",
-                                  data=body, headers={'Content-Type': 'application/xml'})
+                                  data=getbody(data), headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
             response = u.read()
             return response
