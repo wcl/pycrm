@@ -102,6 +102,7 @@ def sendred():
                                   data=getbody(data), headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
             response = u.read()
+            logging.debug(response)
             return response
     except:
         logging.exception()
@@ -122,6 +123,7 @@ def sendcoupon():
                                   data=getbody(data), headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
             response = u.read()
+            logging.debug(response)
             return response
     except:
         logging.exception()
