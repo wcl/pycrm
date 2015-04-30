@@ -54,7 +54,8 @@ class HTTPSClientAuthHandler(urllib2.HTTPSHandler):
 cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
-
+currentTime = datetime.datetime.strftime(
+            datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
 
 def getbody(data):
     data["nonce_str"] = "d2asf1323242sdf1a"
@@ -86,8 +87,7 @@ def getbody(data):
 def sendred():
     try:
         inputdata = frappe.local.request.stream.readlines()
-        currentTime = datetime.datetime.strftime(
-            datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+
         if inputdata:
             logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
@@ -111,8 +111,7 @@ def sendred():
 def sendcoupon():
     try:
         inputdata = frappe.local.request.stream.readlines()
-        currentTime = datetime.datetime.strftime(
-            datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+        
         if inputdata:
             logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
