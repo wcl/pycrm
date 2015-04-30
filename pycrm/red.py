@@ -10,7 +10,8 @@ import json
 import logging
 import time
 import datetime
-logging.basicConfig(filename="..//logs//api.log", level=logging.DEBUG)
+logging.basicConfig(filename="..//logs//api.log",
+                    level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 
 def to_tag(k, v):
@@ -54,14 +55,13 @@ class HTTPSClientAuthHandler(urllib2.HTTPSHandler):
 cert_handler = HTTPSClientAuthHandler(KEY_FILE, CERT_FILE)
 opener = urllib2.build_opener(cert_handler)
 urllib2.install_opener(opener)
-currentTime = datetime.datetime.strftime(
-            datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
+
 
 def getbody(data):
     data["nonce_str"] = "d2asf1323242sdf1a"
     myKey = data["key"]
     del data["key"]
-    logging.debug(currentTime + "data=" + str(data))
+    logging.debug("data=" + str(data))
 
     newdata = dict(
         [k.encode('utf-8'), unicode(v).encode('utf-8')] for k, v in data.items())
@@ -79,7 +79,7 @@ def getbody(data):
     sign = hashlib.md5(query_str).hexdigest().upper()
     data["sign"] = sign
     body = to_tag("xml", data)
-    logging.debug(currentTime + "body=" + str(body))
+    logging.debug("body=" + str(body))
     return body
 
 
@@ -89,14 +89,14 @@ def sendred():
         inputdata = frappe.local.request.stream.readlines()
 
         if inputdata:
-            logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
+            logging.debug("inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
             #global num
             # snum=str(num+1)
             billno = data["mch_id"] + datetime.datetime.strftime(
                 datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
             data["mch_billno"] = billno
-            logging.debug(currentTime + "billno=" + billno)
+            logging.debug("billno=" + billno)
 
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack",
                                   data=getbody(data), headers={'Content-Type': 'application/xml'})
@@ -104,24 +104,24 @@ def sendred():
             response = u.read()
             return response
     except:
-        logging.exception(currentTime)
+        logging.exception()
 
 
 @frappe.whitelist(allow_guest=True)
 def sendcoupon():
     try:
         inputdata = frappe.local.request.stream.readlines()
-        
+
         if inputdata:
-            logging.debug(currentTime + "inputdata[0]=" + inputdata[0])
+            logging.debug("inputdata[0]=" + inputdata[0])
             data = json.loads(inputdata[0])
             #global num
             # snum=str(num+1)
-            
+
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon",
                                   data=getbody(data), headers={'Content-Type': 'application/xml'})
             u = urllib2.urlopen(req)
             response = u.read()
             return response
     except:
-        logging.exception(currentTime)
+        logging.exception()
