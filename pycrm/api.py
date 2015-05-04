@@ -58,8 +58,13 @@ def newcustomer():
                 #find Employee Name
                 if em_Code != None:
                     em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                    if em_Name != None:
-                        message=u"您已绑定销售人员：{0}".format(em_Name)
+                    if data["isbind"]=="1":
+                        if em_Name != None:
+                            message=u"您已绑定销售人员：{0}".format(em_Name)
+                    else:
+                        #only display name
+                        if em_Name != None:
+                            message=u"{0}".format(em_Name)
                         
         if frappe.db.exists("Customer", name):
             # return "already exists recode with name is " + name
