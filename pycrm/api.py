@@ -26,7 +26,7 @@ def newcustomer():
             data['cus_code'] = name #
             employeeMark = data["cus_body"].encode('utf-8')  # em_Code,em_Mobile,em_Email
             message=""
-            em_WXID="" #employee weixin ID
+            em_WXID="o6j3_spyEyqcSTWzASEBvehkQm-A" #employee weixin ID
             if employeeMark.startswith("last_trade_no"):
                 employeeMark=""
             if employeeMark == "":
@@ -78,9 +78,10 @@ def newcustomer():
                 #find Employee Name
                 if em_Code != None:
                     em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                    em_WXID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_WXID")
+                    #em_WXID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_WXID")
                     if data["isbind"]=="1":
                         if em_Name != None:
+                            
                             numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
                             message=u"谢谢您的参与,您是销售人员：{0}的第{1}位支持者".format(em_Name,numbers)
                     else:
