@@ -3,6 +3,11 @@ import frappe
 import json
 import logging
 import time,datetime
+#UnicodeDecodeError: 'ascii' codec can't decode byte 0xe5 in position 1: ordinal not in range(128)
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 logging.basicConfig(filename="..//logs//api.log",level=logging.DEBUG)
 
 @frappe.whitelist(allow_guest=True)
@@ -51,8 +56,9 @@ def newcustomer():
                                         data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
                                     else:
                                         #find muilty employee by Name
+                                        logging.debug("emNum={0}".format(emNum))
                                         message=u"姓名为{0}的销售人员存在{1}个，具体信息如下：\n".format(employeeMark,str(emNum))
-                                        multinfos="";
+                                        multinfos=""
                                         em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
                                         for code in em_Codes:
                                             mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
