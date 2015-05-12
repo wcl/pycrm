@@ -65,11 +65,9 @@
   {
    "fieldname": "em_Address", 
    "fieldtype": "Data", 
-   "in_list_view": 1, 
    "label": "\u5730\u5740", 
    "permlevel": 0, 
-   "precision": "", 
-   "width": ""
+   "precision": ""
   }, 
   {
    "fieldname": "em_ColumnBreak0", 
@@ -101,6 +99,20 @@
    "label": "\u56fa\u5b9a\u7535\u8bdd", 
    "permlevel": 0, 
    "precision": ""
+  }, 
+  {
+   "fieldname": "em_WXID", 
+   "fieldtype": "Data", 
+   "label": "\u5fae\u4fe1ID", 
+   "permlevel": 0, 
+   "precision": ""
+  }, 
+  {
+   "fieldname": "em_Enabled", 
+   "fieldtype": "Check", 
+   "label": "\u662f\u5426\u542f\u7528", 
+   "permlevel": 0, 
+   "precision": ""
   }
  ], 
  "hide_heading": 0, 
@@ -110,7 +122,7 @@
  "is_submittable": 0, 
  "issingle": 0, 
  "istable": 0, 
- "modified": "2015-04-27 13:12:23.055070", 
+ "modified": "2015-05-12 18:29:06.465469", 
  "modified_by": "Administrator", 
  "module": "Pycrm", 
  "name": "Employee", 
