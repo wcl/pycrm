@@ -30,7 +30,7 @@ def newcustomer():
             data['cus_attention'] = 1
             data['cus_code'] = name #
             employeeMark = data["cus_body"].encode('utf-8')  # em_Code,em_Mobile,em_Email
-            message=""
+            message="123"
             em_WXID="" #employee weixin ID
             emNum=0
             if employeeMark.startswith("last_trade_no"):
@@ -73,18 +73,22 @@ def newcustomer():
                                         #logging.debug("message-Last={0}".format(message))
                                         
                             else:
+                                emNum=1
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
                         else:
+                            emNum=1
                             data["cus_salesmanCode"] = em_Code
                             data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(employeeMark)
                     else:
+                        emNum=1
                         data["cus_salesmanCode"] = em_Code
                         data["cus_remark"] = "Bind,input find by Code={0} ".format(em_Code)
                 else:
                     if em_Code == None:
                         data["cus_remark"] = "Scan code,input not find by Code={0} ".format(em_Code)
                     else:
+                        emNum=1
                         data["cus_salesmanCode"] = em_Code
                         data["cus_remark"] = "Scan,input find by Code={0} ".format(em_Code)
                 #find Employee Name
@@ -95,12 +99,14 @@ def newcustomer():
                         if data["isbind"]=="1":
                             if em_Name != None:
                                 logging.debug("em_Code={0},name={1}".format(em_Code,name))
-                                #numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
+                                totalCount=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})#totalCount
                                 cusD = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode='{0}' and name!='{1}'".format(em_Code,name))
                                 logging.debug("cusD={0}".format(str(cusD)))
                                 numbers=len(cusD)
                                 if numbers==0:
-                                    numbers=1
+                                    numbers=totalCount+1
+                                else:
+                                    numbers=totalCount
                                 message=u"谢谢您的参与,销售人员：{0}目前共有{1}位支持者".format(em_Name,numbers)
                         else:
                             #only display name by saoma
