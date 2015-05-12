@@ -56,11 +56,11 @@ def newcustomer():
                                         data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
                                     else:
                                         #find muilty employee by Name
-                                        logging.debug("emNum={0}".format(emNum))
                                         message=u"姓名为{0}的销售人员存在{1}个，具体信息如下：\n".format(employeeMark,str(emNum))
                                         multinfos=""
                                         em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
                                         for code in em_Codes:
+                                            logging.debug("em_Codes-code={0}".format(code))
                                             mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
                                             email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
                                             multinfos=multinfos+u"编码={0},手机号={1},邮箱={2};\n".format(code,mobile,email)
@@ -89,7 +89,7 @@ def newcustomer():
                         if em_Name != None:
                             
                             numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
-                            message=u"谢谢您的参与,您是销售人员：{0}的第{1}位支持者".format(em_Name,numbers)
+                            message=u"谢谢您的参与,销售人员：{0}共有{1}位支持者".format(em_Name,numbers)
                     else:
                         #only display name by saoma
                         if em_Name != None:
