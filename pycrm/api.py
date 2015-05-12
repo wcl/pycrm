@@ -50,7 +50,7 @@ def newcustomer():
                                         data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
                                     else:
                                         #find muilty employee by Name
-                                        message=u"姓名为{0}的销售人员存在多个，信息如下：\n".format(employeeMark)：
+                                        message=u"姓名为{0}的销售人员存在多个，信息如下：\n".format(employeeMark)
                                         multinfos="";
                                         em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
                                         for code in em_Codes:
