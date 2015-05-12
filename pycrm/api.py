@@ -60,6 +60,7 @@ def newcustomer():
                                         multinfos=""
                                         em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
                                         for code in em_Codes:
+                                            code=code[0]
                                             logging.debug("em_Codes-code={0}".format(code))
                                             mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
                                             email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
