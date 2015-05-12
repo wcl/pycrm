@@ -32,6 +32,7 @@ def newcustomer():
             employeeMark = data["cus_body"].encode('utf-8')  # em_Code,em_Mobile,em_Email
             message=""
             em_WXID="" #employee weixin ID
+            emNum=0
             if employeeMark.startswith("last_trade_no"):
                 employeeMark=""
             if employeeMark == "":
@@ -65,8 +66,12 @@ def newcustomer():
                                             mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
                                             email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
                                             multinfos=multinfos+u"编码={0},手机号={1},邮箱={2};\n".format(code,mobile,email)
+                                            logging.debug("multinfos={0}".format(multinfos))
                                         multinfos=multinfos+u"请您重新根据编码，手机号或邮箱进行支持,谢谢！"
+                                        logging.debug("multinfos-Last={0}".format(multinfos))
                                         message=message+multinfos
+                                        logging.debug("message-Last={0}".format(message))
+                                        
                             else:
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
@@ -84,17 +89,17 @@ def newcustomer():
                         data["cus_remark"] = "Scan,input find by Code={0} ".format(em_Code)
                 #find Employee Name
                 if em_Code != None:
-                    em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
-                    em_WXID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_WXID")
-                    if data["isbind"]=="1":
-                        if em_Name != None:
-                            
-                            numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
-                            message=u"谢谢您的参与,销售人员：{0}共有{1}位支持者".format(em_Name,numbers)
-                    else:
-                        #only display name by saoma
-                        if em_Name != None:
-                            message=u"{0}".format(em_Name)
+                    if emNum==1:
+                        em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
+                        em_WXID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_WXID")
+                        if data["isbind"]=="1":
+                            if em_Name != None:
+                                numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
+                                message=u"谢谢您的参与,销售人员：{0}共有{1}位支持者".format(em_Name,numbers)
+                        else:
+                            #only display name by saoma
+                            if em_Name != None:
+                                message=u"{0}".format(em_Name)
                         
         if frappe.db.exists("Customer", name):
             # return "already exists recode with name is " + name
