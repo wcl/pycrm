@@ -45,7 +45,7 @@ def newcustomer():
                                     message=u"通过编码，手机号，邮箱,姓名均未找到对应的销售人员"
                                 else:
                                     emNum=frappe.db.count("Employee", {"em_Name": employeeMark})
-                                    if emNum==1
+                                    if emNum==1:
                                         data["cus_salesmanCode"] = em_Code
                                         data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
                                     else:
