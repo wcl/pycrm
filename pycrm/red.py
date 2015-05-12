@@ -10,7 +10,7 @@ import json
 import logging
 import time
 import datetime
-logging.basicConfig(filename="..//logs//redapi.log",
+logging.basicConfig(filename="..//logs//api.log",
                     level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 
@@ -93,10 +93,9 @@ def sendred():
             data = json.loads(inputdata[0])
             #global num
             # snum=str(num+1)
-            billno = data["mch_id"] + datetime.datetime.strftime(
-                datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
-            data["mch_billno"] = billno
-            logging.debug("billno=" + billno)
+            #billno = data["mch_id"] + datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d') + str(time.time())[0:10]
+            #data["mch_billno"] = billno
+            #logging.debug("billno=" + billno)
 
             req = urllib2.Request("https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack",
                                   data=getbody(data), headers={'Content-Type': 'application/xml'})
