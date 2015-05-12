@@ -99,7 +99,9 @@ def newcustomer():
                                 cusD = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode='{0}' and name!='{1}'".format(em_Code,name))
                                 logging.debug("cusD={0}".format(str(cusD)))
                                 numbers=len(cusD)
-                                message=u"谢谢您的参与,销售人员：{0}共有{1}位支持者".format(em_Name,numbers)
+                                if numbers==0:
+                                    numbers=1
+                                message=u"谢谢您的参与,销售人员：{0}目前共有{1}位支持者".format(em_Name,numbers)
                         else:
                             #only display name by saoma
                             if em_Name != None:
