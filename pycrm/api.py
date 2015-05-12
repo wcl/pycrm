@@ -96,7 +96,7 @@ def newcustomer():
                             if em_Name != None:
                                 logging.debug("em_Code={0},name={1}".format(em_Code,name))
                                 #numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
-                                cusD = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode='{0}' and name!='{1}'").format(em_Code,name)
+                                cusD = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode='{0}' and name!='{1}'".format(em_Code,name))
                                 logging.debug("cusD={0}".format(str(cusD)))
                                 numbers=len(cusD)
                                 message=u"谢谢您的参与,销售人员：{0}共有{1}位支持者".format(em_Name,numbers)
