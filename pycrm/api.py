@@ -94,6 +94,7 @@ def newcustomer():
                         em_WXID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_WXID")
                         if data["isbind"]=="1":
                             if em_Name != None:
+                                logging.debug("em_Code={0},name={1}".format(em_Code,name))
                                 numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
                                 doctypes = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode=='{0}' and name!='{1}'").format(em_Code,name)
                                 logging.debug("doctypes={0}".format(str(doctypes)))
