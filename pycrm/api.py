@@ -38,8 +38,24 @@ def newcustomer():
                         if em_Code==None:
                             em_Code = frappe.db.get_value("Employee", {"em_Email": employeeMark}, "em_Code")
                             if em_Code==None:
-                                data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
-                                message=u"通过编码，手机号，邮箱均未找到对应的销售人员"
+                                em_Code = frappe.db.get_value("Employee", {"em_Name": employeeMark}, "em_Code")
+                                if em_Code==None:
+                                    data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
+                                    message=u"通过编码，手机号，邮箱,昵称均未找到对应的销售人员"
+                                else:
+                                    em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
+                                    if len(em_Codes)==1
+                                        data["cus_salesmanCode"] = em_Code
+                                        data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
+                                    else:
+                                        #find muilty employee by Name
+                                        message=u"昵称为{0}的销售人员存在多个，信息如下：\n".format(employeeMark)：
+                                        multinfos="";
+                                        for code in em_Codes:
+                                            mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
+                                            email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
+                                            multinfos=multinfos+u"Code={0},Mobile={1},Email={2};\n".format(code,mobile,email)
+                                        message=message+multinfos
                             else:
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
@@ -60,9 +76,13 @@ def newcustomer():
                     em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
                     if data["isbind"]=="1":
                         if em_Name != None:
-                            message=u"您已绑定销售人员：{0}".format(em_Name)
+                            cus_codes=frappe.db.get_values("Customer", {"cus_salesmanCode": em_Code}, "cus_code")
+                            numbers=len(cus_codes)+1
+                            message=u"您是销售人员：{0}的第{1}位支持者".format(em_Name,numbers)
+                            EmployeeCusID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "name")
+                            frappe.local.response.update({"EmployeeCusID": EmployeeCusID,"message":message})
                     else:
-                        #only display name
+                        #only display name by saoma
                         if em_Name != None:
                             message=u"{0}".format(em_Name)
                         
