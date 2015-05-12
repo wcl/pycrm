@@ -10,7 +10,7 @@ import json
 import logging
 import time
 import datetime
-logging.basicConfig(filename="..//logs//api.log",
+logging.basicConfig(filename="..//logs//redapi.log",
                     level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 
