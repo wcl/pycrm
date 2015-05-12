@@ -10,6 +10,7 @@ def query():
     # u = frappe.db.sql("select * from tabcustomer", as_dict=True)[0]
     # u = frappe.db.exists("customer", "d906c05bf9")
     # print frappe.local.form_dict.keys()
+    logging.debug("query-123")
     return 123
 
 
@@ -106,12 +107,9 @@ def newcustomer():
 def cancelatt():
     print frappe.form_dict
     docname = frappe.form_dict.get('docname')
-
     frappe.set_value("Customer", docname, 'cus_attention', 0)
     frappe.db.commit()
     return "ok"
-
-
 @frappe.whitelist()
 def uploadfile():
     try:
