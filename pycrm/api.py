@@ -13,7 +13,6 @@ def query():
     logging.debug("query-123")
     return 123
 
-
 @frappe.whitelist()
 def newcustomer():
     try:
@@ -27,6 +26,7 @@ def newcustomer():
             data['cus_code'] = name #
             employeeMark = data["cus_body"].encode('utf-8')  # em_Code,em_Mobile,em_Email
             message=""
+            em_WXID="" #employee weixin ID
             if employeeMark.startswith("last_trade_no"):
                 employeeMark=""
             if employeeMark == "":
@@ -43,7 +43,7 @@ def newcustomer():
                                 em_Code = frappe.db.get_value("Employee", {"em_Name": employeeMark}, "em_Code")
                                 if em_Code==None:
                                     data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
-                                    message=u"通过编码，手机号，邮箱,姓名均未找到对应的销售人员"
+                                    message=u"通过编码，手机号，邮箱,姓名均未找到对应的销售人员，请联系相关销售人员"
                                 else:
                                     emNum=frappe.db.count("Employee", {"em_Name": employeeMark})
                                     if emNum==1:
@@ -51,13 +51,14 @@ def newcustomer():
                                         data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
                                     else:
                                         #find muilty employee by Name
-                                        message=u"姓名为{0}的销售人员存在多个，信息如下：\n".format(employeeMark)
+                                        message=u"姓名为{0}的销售人员存在{1}个，具体信息如下：\n".format(employeeMark,str(emNum))
                                         multinfos="";
                                         em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
                                         for code in em_Codes:
                                             mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
                                             email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
-                                            multinfos=multinfos+u"Code={0},Mobile={1},Email={2};\n".format(code,mobile,email)
+                                            multinfos=multinfos+u"编码={0},手机号={1},邮箱={2};\n".format(code,mobile,email)
+                                        multinfos=multinfos+u"请您重新根据编码，手机号或邮箱进行支持,谢谢！"
                                         message=message+multinfos
                             else:
                                 data["cus_salesmanCode"] = em_Code
@@ -77,10 +78,11 @@ def newcustomer():
                 #find Employee Name
                 if em_Code != None:
                     em_Name = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_Name")
+                    em_WXID = frappe.db.get_value("Employee", {"em_Code": em_Code}, "em_WXID")
                     if data["isbind"]=="1":
                         if em_Name != None:
                             numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
-                            message=u"您是销售人员：{0}的第{1}位支持者".format(em_Name,numbers)
+                            message=u"谢谢您的参与,您是销售人员：{0}的第{1}位支持者".format(em_Name,numbers)
                     else:
                         #only display name by saoma
                         if em_Name != None:
@@ -93,13 +95,13 @@ def newcustomer():
             doc.save()
             #return message
             #frappe.local.response.update({"data":doc.save().as_dict(),"status": "update","message":message})
-            frappe.local.response.update({"EmployeeCusID": "123","message":message})
+            frappe.local.response.update({"EmployeeWXID": em_WXID,"message":message})
         else:
             data.update({"doctype": "Customer"})
             frappe.get_doc(data).insert()
             #return message
             #frappe.local.response.update({"data": frappe.get_doc(data).insert().as_dict(),"status": "insert","message":message})
-            frappe.local.response.update({"EmployeeCusID": "456","message":message})
+            frappe.local.response.update({"EmployeeWXID": em_WXID,"message":message})
         frappe.db.commit()
     except :
         logging.exception(currentTime)
