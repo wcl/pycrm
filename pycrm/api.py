@@ -39,6 +39,7 @@ def newcustomer():
                         if em_Code==None:
                             em_Code = frappe.db.get_value("Employee", {"em_Email": employeeMark}, "em_Code")
                             if em_Code==None:
+                                logging.debug("employeeMark={0}".format(employeeMark))
                                 em_Code = frappe.db.get_value("Employee", {"em_Name": employeeMark}, "em_Code")
                                 if em_Code==None:
                                     data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)

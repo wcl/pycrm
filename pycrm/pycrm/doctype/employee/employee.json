@@ -101,6 +101,14 @@
    "label": "\u56fa\u5b9a\u7535\u8bdd", 
    "permlevel": 0, 
    "precision": ""
+  }, 
+  {
+   "fieldname": "em_wxID", 
+   "fieldtype": "Data", 
+   "in_list_view": 1, 
+   "label": "\u5fae\u4fe1\u49\u44", 
+   "permlevel": 0, 
+   "precision": ""
   }
  ], 
  "hide_heading": 0, 
