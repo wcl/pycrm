@@ -62,15 +62,15 @@ def newcustomer():
                                         em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
                                         for code in em_Codes:
                                             code=code[0]
-                                            logging.debug("em_Codes-code={0}".format(code))
+                                            #logging.debug("em_Codes-code={0}".format(code))
                                             mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
                                             email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
                                             multinfos=multinfos+u"编码={0},手机号={1},邮箱={2};\n".format(code,mobile,email)
-                                            logging.debug("multinfos={0}".format(multinfos))
+                                            #logging.debug("multinfos={0}".format(multinfos))
                                         multinfos=multinfos+u"请您重新根据编码，手机号或邮箱进行支持,谢谢！"
-                                        logging.debug("multinfos-Last={0}".format(multinfos))
+                                        #logging.debug("multinfos-Last={0}".format(multinfos))
                                         message=message+multinfos
-                                        logging.debug("message-Last={0}".format(message))
+                                        #logging.debug("message-Last={0}".format(message))
                                         
                             else:
                                 data["cus_salesmanCode"] = em_Code
@@ -95,6 +95,8 @@ def newcustomer():
                         if data["isbind"]=="1":
                             if em_Name != None:
                                 numbers=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})+1
+                                doctypes = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode=={0} and name!={1}").format(em_Code,name)
+                                logging.debug("doctypes={0}".format(str(doctypes)))
                                 message=u"谢谢您的参与,销售人员：{0}共有{1}位支持者".format(em_Name,numbers)
                         else:
                             #only display name by saoma
