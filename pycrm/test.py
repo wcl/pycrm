@@ -15,6 +15,6 @@ def query():
     # u = frappe.db.sql("select * from tabcustomer", as_dict=True)[0]
     # u = frappe.db.exists("customer", "d906c05bf9")
     # print frappe.local.form_dict.keys()
-    u = frappe.db.get_values("Customer", {"cus_name": ("= wwq")})
+    u = frappe.db.get_values("Customer", {"cus_name": ("= 'wwq'")})
 
     return u
