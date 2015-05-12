@@ -25,7 +25,7 @@ def newcustomer():
             name = data["name"]
             data['cus_attention'] = 1
             data['cus_code'] = name #
-            employeeMark = data["cus_body"]  # em_Code,em_Mobile,em_Email
+            employeeMark = data["cus_body"].encode('utf-8')  # em_Code,em_Mobile,em_Email
             message=""
             if employeeMark.startswith("last_trade_no"):
                 employeeMark=""
