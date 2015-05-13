@@ -21,4 +21,4 @@ def query():
     #u = frappe.db.get_values("Customer", {"cus_name": ("!=", 'wwq')}, "*")
     u = frappe.get_doc(
                     "Employee", {"em_Mobile": "13212345625", "em_Name": "殷雄"})
-    return u.em_Code,u["em_Name"]
+    return u
