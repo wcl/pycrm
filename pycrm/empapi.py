@@ -32,12 +32,12 @@ def setEmployeeWXID():
             empDoc = frappe.get_doc(
                 "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
 
-            logging.debug(empDoc)
+            logging.debug(empDoc.as_dict())
 
             if empDoc != None:
                 empDoc.update(data)
                 empDoc.save()
-                if empDoc["em_Enabled"] == 1:
+                if empDoc.em_Enabled == 1:
                     message = "已经审核您为公司销售"
                 else:
                     message = "还未审核您为公司销售"
