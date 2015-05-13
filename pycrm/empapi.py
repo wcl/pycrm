@@ -30,9 +30,11 @@ def setEmployeeWXID():
                 currentTime+"em_Name={0},em_Mobile={1},em_WXID={2}".format(em_Name, em_Mobile, em_WXID))
 
             empDoc = frappe.get_doc(
-                "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name}).as_dict()
+                "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
 
-            if empDoc:
+            logging.debug(empDoc)
+
+            if empDoc != None:
                 empDoc.update(data)
                 empDoc.save()
                 if empDoc["em_Enabled"] == 1:
