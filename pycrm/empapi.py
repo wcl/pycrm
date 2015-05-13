@@ -30,7 +30,7 @@ def setEmployeeWXID():
                 currentTime+"em_Name={0},em_Mobile={1},em_WXID={2}".format(em_Name, em_Mobile, em_WXID))
 
             empDoc = frappe.get_doc(
-                "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
+                "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name}).as_dict()
 
             if empDoc:
                 empDoc.update(data)
