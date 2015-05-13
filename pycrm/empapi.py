@@ -23,7 +23,8 @@ def setEmployeeWXID():
                 datetime.datetime.now(), '%Y-%m-%d %H:%M:%S')
             logging.debug(currentTime+"inputdata[0]="+inputdata[0])
             data = json.loads(inputdata[0])
-            em_Name = data["em_Name"]
+            em_Name = data["em_Name"].encode('utf-8')
+            data["em_Name"]=em_Name
             em_Mobile = data["em_Mobile"]
             em_WXID = data["em_WXID"]
             logging.debug(
