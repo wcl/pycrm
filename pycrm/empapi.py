@@ -42,9 +42,10 @@ def setEmployeeWXID():
             else:
                 emMaxCodes=frappe.db.sql_list("select  em_Code from tabEmployee order by (em_Code+0) desc limit 1 ")
                 logging.debug("emMaxCodes={0},emMaxCodes[0]={1}".format(str(emMaxCodes),str(emMaxCodes[0])))
-                code=int(emMaxCodes[0])+1
+                code=str(int(emMaxCodes[0])+1)
                 data.update({"doctype": "Employee"})
                 data["em_Enabled"] = 0
+                data["em_Code"] = code
                 frappe.get_doc(data).insert()
                 message = "您是新注册，请联系管理员核查"
                 frappe.local.response.update({"state": "insert", "code":code,"message": message})
