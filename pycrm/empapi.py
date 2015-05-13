@@ -28,9 +28,11 @@ def setEmployeeWXID():
             em_WXID = data["em_WXID"]
             logging.debug(
                 currentTime+"em_Name={0},em_Mobile={1},em_WXID={2}".format(em_Name, em_Mobile, em_WXID))
-            if frappe.db.exists("Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name}):
-                empDoc = frappe.get_doc(
-                    "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
+
+            empDoc = frappe.get_doc(
+                "Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
+
+            if empDoc:
                 empDoc.update(data)
                 empDoc.save()
                 if empDoc["em_Enabled"] == 1:
