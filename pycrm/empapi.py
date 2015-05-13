@@ -28,18 +28,21 @@ def setEmployeeWXID():
             em_Mobile = data["em_Mobile"]
             em_WXID = data["em_WXID"]
             logging.debug(currentTime+"em_Name={0},em_Mobile={1},em_WXID={2}".format(em_Name, em_Mobile, em_WXID))
-            empDoc = frappe.get_doc("Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
-            if empDoc != None:
+            emCode=frappe.db.get_value("Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name}, "em_Code")
+            if emCode != None:
+                empDoc = frappe.get_doc("Employee", {"em_Mobile": em_Mobile, "em_Name": em_Name})
                 empDoc.update(data)
                 empDoc.save()
-                code=empDoc.as_dict()["em_Code"]
+                code=emCode
                 if empDoc.as_dict()["em_Enabled"] == 1:
                     message = "注册成功"
                 else:
                     message = "注册成功，请联系管理员核查"
                 frappe.local.response.update({"state": "update","code":code, "message": message})
             else:
-                #emMaxID=frappe.db.sql_list("select max(em_Code) from tabEmployee ")
+                emMaxCodes=frappe.db.sql_list("select  em_Code from tabEmployee order by (em_Code+0) desc limit 1;")
+                logging.debug("emMaxCodes={0},emMaxCodes[0]={1}".format(str(emMaxCodes),str(emMaxCodes[0])))
+                code=emMaxCodes[0]+1
                 data.update({"doctype": "Employee"})
                 data["em_Enabled"] = 0
                 frappe.get_doc(data).insert()
@@ -47,5 +50,4 @@ def setEmployeeWXID():
                 frappe.local.response.update({"state": "insert", "code":code,"message": message})
             frappe.db.commit()
     except:
-        #pass
         logging.exception(currentTime)
