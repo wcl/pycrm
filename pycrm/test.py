@@ -23,8 +23,9 @@ def query():
     #                "Employee", {"em_Mobile": "13212345625", "em_Name": "殷雄"})
 
     social = frappe.get_doc("Social Login Keys", "Social Login Keys")
-
+    client_id = social.facebook_client_id
+    secret = social.facebook_client_secret
     # fieldname in ("client_id", "client_secret"):
     # client_id =
     # social.get("{facebook}_{fieldname}".format(provider=provider,fieldname=fieldname))
-    return social
+    return client_id, secret
