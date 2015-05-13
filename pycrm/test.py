@@ -19,6 +19,11 @@ def query():
     # u = frappe.db.exists("customer", "d906c05bf9")
     # print frappe.local.form_dict.keys()
     #u = frappe.db.get_values("Customer", {"cus_name": ("!=", 'wwq')}, "*")
-    u = frappe.get_doc(
-                    "Employee", {"em_Mobile": "13212345625", "em_Name": "殷雄"})
-    return u
+    #u = frappe.get_doc(
+    #                "Employee", {"em_Mobile": "13212345625", "em_Name": "殷雄"})
+	
+	social = frappe.get_doc("Social Login Keys", "Social Login Keys")
+	# fieldname in ("client_id", "client_secret"):
+	# client_id = social.get("{facebook}_{fieldname}".format(provider=provider, fieldname=fieldname))
+			
+    return social
