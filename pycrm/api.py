@@ -100,14 +100,16 @@ def newcustomer():
                             if em_Name != None:
                                 logging.debug("em_Code={0},name={1}".format(em_Code,name))
                                 totalCount=frappe.db.count("Customer", {"cus_salesmanCode": em_Code})#totalCount
+                                tmp=len(frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode='{0}'".format(em_Code)))
                                 cusD = frappe.db.sql_list("select cus_Name from tabCustomer where cus_salesmanCode='{0}' and name!='{1}'".format(em_Code,name))
                                 logging.debug("cusD={0}".format(str(cusD)))
                                 numbers=len(cusD)
+                                logging.debug("numbers={0},totalCount={1},tmp={2}".format(str(numbers),str(totalCount),str(tmp)))
                                 if numbers==0:
                                     numbers=totalCount+1
                                 else:
                                     numbers=totalCount
-                                message=u"谢谢您的参与,销售人员：{0}目前共有{1}位支持者".format(em_Name,numbers)
+                                message=u"谢谢您的参与,销售人员:\"{0}\"目前共有{1}位支持者".format(em_Name,numbers)
                         else:
                             #only display name by saoma
                             if em_Name != None:
