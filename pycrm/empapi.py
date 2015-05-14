@@ -62,21 +62,21 @@ def setEmployeeWXID():
                                 empDoc.update(data)
                                 empDoc.save()
                                 message = "欢迎加入鑫玉龙销售团队，请联系管理员核准启用"
-                                frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"0"}})
+                                frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"0"})
                                 frappe.db.commit()
                             else:
                                 logging.debug("通过Code={0}未找到销售人员记录".format(code))
                         else:
                             #已经存在9999已启用的销售
                             message="鑫玉龙销售团队已满,系统不再接收，感谢您的参与"
-                            frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"1"}})
+                            frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"1"})
                     else:
                         data.update({"doctype": "Employee"})
                         data["em_Enabled"] = 0
                         data["em_Code"] = code
                         frappe.get_doc(data).insert()
                         message = "欢迎加入鑫玉龙销售团队，请联系管理员核准启用"
-                        frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"0"}})
+                        frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"0"})
                         frappe.db.commit()
                 else:
                     #销售表无记录时，即：第一个加入销售团队的人
@@ -85,7 +85,7 @@ def setEmployeeWXID():
                     data.update({"doctype": "Employee"})
                     frappe.get_doc(data).insert()
                     message = "欢迎加入鑫玉龙销售团队，请联系管理员核准启用"
-                    frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"0"}})
+                    frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message,"error":"0"})
                     frappe.db.commit()
     except:
         logging.exception(currentTime)
