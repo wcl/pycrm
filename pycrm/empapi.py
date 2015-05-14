@@ -72,8 +72,8 @@ def setEmployeeWXID():
                         frappe.get_doc(data).insert()
                     message = "欢迎加入鑫玉龙销售团队，请联系管理员核准启用"
                     frappe.local.response.update({"state": "insert", "code":code,"name":em_Name,"message": message})
-                frappe.db.commit()
-                else :
+                    frappe.db.commit()
+                else:
                     #销售表无记录时，即：第一个加入销售团队的人
                     data["em_Enabled"] = 0
                     data["em_Code"] = code #此时code=1
