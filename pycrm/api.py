@@ -49,7 +49,7 @@ def newcustomer():
                                 em_Code = frappe.db.get_value("Employee", {"em_Name": employeeMark,"em_Enabled":"1"}, "em_Code")
                                 if em_Code==None:
                                     data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
-                                    message=u"通过编码，手机号，邮箱,姓名均未找到对应的已核准的销售人员，请联系相关销售人员"
+                                    message=u"通过编码，手机号，邮箱，姓名均未找到对应的已核准的销售人员，请联系相关销售人员"
                                 else:
                                     emNum=frappe.db.count("Employee", {"em_Name": employeeMark,"em_Enabled":"1"})
                                     if emNum==1:
@@ -67,7 +67,7 @@ def newcustomer():
                                             email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
                                             multinfos=multinfos+u"编码={0},手机号={1},邮箱={2};\n".format(code,mobile,email)
                                             #logging.debug("multinfos={0}".format(multinfos))
-                                        multinfos=multinfos+u"请您重新根据编码，手机号或邮箱进行支持,谢谢！"
+                                        multinfos=multinfos+u"请您重新根据编码或手机号或邮箱进行支持，谢谢！"
                                         #logging.debug("multinfos-Last={0}".format(multinfos))
                                         message=message+multinfos
                                         #logging.debug("message-Last={0}".format(message))
@@ -90,7 +90,7 @@ def newcustomer():
                                     mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
                                     email=frappe.db.get_value("Employee", {"em_Code": code}, "em_Email")
                                     multinfos=multinfos+u"编码={0},手机号={1},邮箱={2};\n".format(code,mobile,email)
-                                multinfos=multinfos+u"请您重新根据编码，手机号或邮箱进行支持,谢谢！"
+                                multinfos=multinfos+u"请您重新根据编码或手机号或邮箱进行支持，谢谢！"
                                 message=message+multinfos
                     else:
                         emNum=1
@@ -124,7 +124,7 @@ def newcustomer():
                                         numbers=totalCount
                                     else:
                                         numbers=totalCount+1
-                                message=u"谢谢您的参与,销售人员:\"{0}\"目前共有{1}位支持者".format(em_Name,numbers)
+                                message=u"感谢您的参与，销售人员:\"{0}\"目前共有{1}位支持者".format(em_Name,numbers)
                         else:
                             #only display name by saoma
                             if em_Name != None:
