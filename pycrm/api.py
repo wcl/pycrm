@@ -78,7 +78,7 @@ def newcustomer():
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
                         else:
                             emNum=frappe.db.count("Employee", {"em_Mobile": employeeMark})
-                            if emNum=1:
+                            if emNum==1:
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(employeeMark)
                             else:
