@@ -51,15 +51,15 @@ def newcustomer():
                                     data["cus_remark"] = "Bind,input not find by Code,Mobile,Email: {0} ".format(employeeMark)
                                     message=u"通过编码，手机号，邮箱,姓名均未找到对应的已核准的销售人员，请联系相关销售人员"
                                 else:
-                                    emNum=frappe.db.count("Employee", {"em_Name": employeeMark})
+                                    emNum=frappe.db.count("Employee", {"em_Name": employeeMark,"em_Enabled":"1"})
                                     if emNum==1:
                                         data["cus_salesmanCode"] = em_Code
                                         data["cus_remark"] = "Bind,input  find by Name={0} ".format(employeeMark)
                                     else:
                                         #find muilty employee by Name
-                                        message=u"姓名为{0}的销售人员存在{1}个，具体信息如下：\n".format(employeeMark,str(emNum))
+                                        message=u"姓名为{0}的已核准的销售人员存在{1}个，具体信息如下：\n".format(employeeMark,str(emNum))
                                         multinfos=""
-                                        em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark}, "em_Code")
+                                        em_Codes=frappe.db.get_values("Employee", {"em_Name": employeeMark,"em_Enabled":"1"}, "em_Code")
                                         for code in em_Codes:
                                             code=code[0]
                                             #logging.debug("em_Codes-code={0}".format(code))
@@ -77,14 +77,14 @@ def newcustomer():
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Email={0} ".format(employeeMark)
                         else:
-                            emNum=frappe.db.count("Employee", {"em_Mobile": employeeMark})
+                            emNum=frappe.db.count("Employee", {"em_Mobile": employeeMark,"em_Enabled":"1"})
                             if emNum==1:
                                 data["cus_salesmanCode"] = em_Code
                                 data["cus_remark"] = "Bind,input  find by Mobile={0} ".format(employeeMark)
                             else:
                                 message=u"手机号为{0}的销售人员存在{1}个，具体信息如下：\n".format(employeeMark,str(emNum))
                                 multinfos=""
-                                em_Codes=frappe.db.get_values("Employee", {"em_Mobile": employeeMark}, "em_Code")
+                                em_Codes=frappe.db.get_values("Employee", {"em_Mobile": employeeMark,"em_Enabled":"1"}, "em_Code")
                                 for code in em_Codes:
                                     code=code[0]
                                     mobile=frappe.db.get_value("Employee", {"em_Code": code}, "em_Mobile")
