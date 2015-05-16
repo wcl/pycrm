@@ -45,7 +45,6 @@ class Employee(Document):
             raise Exception(message)
         # 验证邮箱
 
-        logging.debug(type(self.em_Email))
         if self.em_Email and re.search('\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*', str(self.em_Email)) == None:
             message = "电子邮箱不合法,请重新录入"
             logging.debug(message)
