@@ -78,15 +78,6 @@
    "precision": ""
   }, 
   {
-   "fieldname": "em_Job", 
-   "fieldtype": "Select", 
-   "in_list_view": 1, 
-   "label": "\u804c\u52a1", 
-   "options": "\u9500\u552e\n\u5ba2\u670d", 
-   "permlevel": 0, 
-   "precision": ""
-  }, 
-  {
    "fieldname": "em_Email", 
    "fieldtype": "Data", 
    "in_list_view": 1, 
