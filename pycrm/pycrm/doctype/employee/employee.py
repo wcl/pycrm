@@ -18,7 +18,8 @@ import re
 
 
 class Employee(Document):
-
+    pass
+    """
     def before_insert(self):
         logging.debug(
             "编码={0},手机号={1}".format(self.em_Code, self.em_Mobile))
@@ -49,3 +50,4 @@ class Employee(Document):
             message = "电子邮箱不合法,请重新录入"
             logging.debug(message)
             raise Exception(message)
+        """

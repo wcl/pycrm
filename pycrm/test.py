@@ -28,4 +28,4 @@ def query():
     # fieldname in ("client_id", "client_secret"):
     # client_id =
     # social.get("{facebook}_{fieldname}".format(provider=provider,fieldname=fieldname))
-    return client_id, secret
+    return 1236890

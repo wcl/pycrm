@@ -20,6 +20,7 @@ def query():
 
 @frappe.whitelist()
 def newcustomer():
+    message=u"感谢您关注鑫玉龙服务号！"
     try:
         inputdata = frappe.local.request.stream.readlines()
         if inputdata:
@@ -30,8 +31,8 @@ def newcustomer():
             data['cus_attention'] = 1
             data['cus_code'] = name #
             employeeMark = data["cus_body"].encode('utf-8')  # em_Code,em_Mobile,em_Email
-            message="123"
-            em_WXID="" #employee weixin ID
+            em_Code=None # employee Code 
+            em_WXID=None #employee weixin ID
             emNum=0
             if employeeMark.startswith("last_trade_no"):
                 employeeMark=""
@@ -129,7 +130,8 @@ def newcustomer():
                             #only display name by saoma
                             if em_Name != None:
                                 message=u"{0}".format(em_Name)
-                        
+        logging.debug("@@@en_Code={0}".format(em_Code))
+        logging.debug("@@@em_WXID={0}".format(em_WXID))             
         if frappe.db.exists("Customer", name):
             # return "already exists recode with name is " + name
             doc = frappe.get_doc("Customer", name)
@@ -146,6 +148,8 @@ def newcustomer():
             frappe.local.response.update({"EmployeeWXID": em_WXID,"message":message})
         frappe.db.commit()
     except :
+        frappe.local.response.update({"EmployeeWXID": "","message":message})
+        logging.debug("@@@-Exception")
         logging.exception(currentTime)
 
 @frappe.whitelist()
